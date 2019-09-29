@@ -6,9 +6,8 @@
 #include "random_number.h"
 #include "sphere.h"
 #include "camera.h"
-#include "lambertian.h"
-#include "metal.h"
-#include "dielectric.h"
+#include "material.h"
+
 using namespace std;
 
 vec3 color(const ray& r, hitable* world, int depth) {
@@ -44,7 +43,7 @@ hitable* random_scene() {
 			if ((center - vec3(4, 0.2, 0)).length() > 0.9) {
 				if (choose_mat < 0.8)
 				{
-					list[i++] = new sphere(center, 0.2, new lambertian(vec3(random_number() * random_number(), random_number() * random_number(), random_number() * random_number())));
+					list[i++] = new moving_sphere(center, center+vec3(0,0.5*random_number(),0), 0.0, 1.0, 0.2, new lambertian(vec3(random_number() * random_number(), random_number() * random_number(), random_number() * random_number())));
 				}
 				else if (choose_mat < 0.95)
 				{
@@ -69,8 +68,8 @@ hitable* random_scene() {
 int main() {
 	ofstream fout;
 	fout.open("img.ppm");
-	int nx = 1920;
-	int ny = 1080;
+	int nx = 1920/10;
+	int ny = 1080/10;
 	int ns = 64;
 
 	/*hitable* list[5];
@@ -87,7 +86,7 @@ int main() {
 	vec3 lookat(0,0,0);
 	float dist_to_focus = 10.0;
 	float aperture = 0.1;
-	camera cam(lookfrom, lookat, vec3(0, 1, 0), 20, float(nx) / float(ny), aperture, dist_to_focus);
+	camera cam(lookfrom, lookat, vec3(0, 1, 0), 20, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
 
 	if (fout) {
 	
