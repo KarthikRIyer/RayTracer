@@ -1,8 +1,10 @@
 #pragma once
 #ifndef SPHEREH
 #define SPHEREH
+#define _USE_MATH_DEFINES
 
 #include "hitable.h"
+#include <math.h>
 
 class sphere : public hitable {
 public:
@@ -15,7 +17,7 @@ public:
 };
 
 bool sphere::hit(const ray& r, float tmin, float tmax, hit_record& rec) const {
-
+	
 	vec3 oc = r.origin() - center;
 	float a = dot(r.direction(), r.direction());
 	float b = dot(oc, r.direction());
@@ -26,6 +28,7 @@ bool sphere::hit(const ray& r, float tmin, float tmax, hit_record& rec) const {
 		if (temp < tmax && temp > tmin) {
 			rec.t = temp;
 			rec.p = r.point_at_parameter(rec.t);
+			get_sphere_uv((rec.p - center) / radius, rec.u, rec.v);
 			rec.normal = (rec.p - center) / radius;
 			rec.mat_ptr = mat_ptr;
 			return true;
@@ -34,6 +37,7 @@ bool sphere::hit(const ray& r, float tmin, float tmax, hit_record& rec) const {
 		if (temp < tmax && temp > tmin) {
 			rec.t = temp;
 			rec.p = r.point_at_parameter(rec.t);
+			get_sphere_uv((rec.p - center) / radius, rec.u, rec.v);
 			rec.normal = (rec.p - center) / radius;
 			rec.mat_ptr = mat_ptr;
 			return true;
@@ -69,6 +73,7 @@ bool moving_sphere::hit(const ray& r, float tmin, float tmax, hit_record& rec) c
 		if (temp < tmax && temp > tmin) {
 			rec.t = temp;
 			rec.p = r.point_at_parameter(rec.t);
+			get_sphere_uv((rec.p - center) / radius, rec.u, rec.v);
 			rec.normal = (rec.p - center(r.time())) / radius;
 			rec.mat_ptr = mat_ptr;
 			return true;
@@ -77,6 +82,7 @@ bool moving_sphere::hit(const ray& r, float tmin, float tmax, hit_record& rec) c
 		if (temp < tmax && temp > tmin) {
 			rec.t = temp;
 			rec.p = r.point_at_parameter(rec.t);
+			get_sphere_uv((rec.p - center) / radius, rec.u, rec.v);
 			rec.normal = (rec.p - center(r.time())) / radius;
 			rec.mat_ptr = mat_ptr;
 			return true;

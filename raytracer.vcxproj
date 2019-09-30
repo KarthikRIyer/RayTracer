@@ -133,6 +133,7 @@
     <ClInclude Include="random_number.h" />
     <ClInclude Include="ray.h" />
     <ClInclude Include="sphere.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="vec3.h" />
   </ItemGroup>
