@@ -81,6 +81,22 @@ hitable* random_scene() {
 
 }
 
+hitable* cornell_box() {
+	hitable** list = new hitable * [6];
+	int i = 0;
+	material* red = new lambertian(new constant_texture(vec3(0.65, 0.05, 0.05)));
+	material* white = new lambertian(new constant_texture(vec3(0.73, 0.73, 0.73)));
+	material* green = new lambertian(new constant_texture(vec3(0.12, 0.45, 0.15)));
+	material* light = new diffuse_light(new constant_texture(vec3(15, 15, 15)));
+	list[i++] = new flip_normals(new yz_rect(0, 555, 0, 555, 555, green));
+	list[i++] = new yz_rect(0, 555, 0, 555, 0, red);
+	list[i++] = new xz_rect(213, 343, 227, 332, 554, light);
+	list[i++] = new flip_normals(new xz_rect(0, 555, 0, 555, 555, white));
+	list[i++] = new xz_rect(0, 555, 0, 555, 0, white);
+	list[i++] = new flip_normals(new xy_rect(0, 555, 0, 555, 555, white));
+	return new hitable_list(list, i);
+}
+
 hitable* simple_light() {
 	hitable** list = new hitable * [4];
 	list[0] = new sphere(vec3(0,-1000,0), 1000, new lambertian(new constant_texture(vec3(0.4, 0.2, 0.1))));
@@ -93,9 +109,9 @@ hitable* simple_light() {
 int main() {
 	ofstream fout;
 	fout.open("img.ppm");
-	int nx = 1920/5;
+	int nx = 1080/5;
 	int ny = 1080/5;
-	int ns = 128;
+	int ns = 128*4;
 
 	/*hitable* list[5];
 	
@@ -106,12 +122,13 @@ int main() {
 	list[4] = new sphere(vec3(-1, 0, -1), -0.45, new dielectric(1.5));*/
 
 	//hitable* world = new hitable_list(list, 5);
-	hitable* world = simple_light();
-	vec3 lookfrom(13,2,3);
-	vec3 lookat(0,0,0);
+	hitable* world = cornell_box();
+	vec3 lookfrom(278,278,-800);
+	vec3 lookat(278,278,0);
 	float dist_to_focus = 10.0;
-	float aperture = 0.1;
-	camera cam(lookfrom, lookat, vec3(0, 1, 0), 40, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
+	float aperture = 0.0;
+	float vfov = 40.0;
+	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
 
 	if (fout) {
 	
