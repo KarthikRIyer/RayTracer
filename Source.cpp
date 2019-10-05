@@ -2,6 +2,7 @@
 
 #include<iostream>
 #include<fstream>
+#include<algorithm>
 #include "vec3.h"
 #include "ray.h"
 #include "hitable_list.h"
@@ -9,6 +10,7 @@
 #include "sphere.h"
 #include "rect.h"
 #include "box.h"
+#include "constant_medium.h"
 #include "camera.h"
 #include "material.h"
 #include "texture.h"
@@ -111,6 +113,27 @@ hitable* cornell_box() {
 	return new hitable_list(list, i);
 }
 
+hitable* cornell_smoke() {
+	SKY = BLACK_SKY;
+	hitable** list = new hitable * [8];
+	int i = 0;
+	material* red = new lambertian(new constant_texture(vec3(0.65, 0.05, 0.05)));
+	material* white = new lambertian(new constant_texture(vec3(0.73, 0.73, 0.73)));
+	material* green = new lambertian(new constant_texture(vec3(0.12, 0.45, 0.15)));
+	material* light = new diffuse_light(new constant_texture(vec3(7, 7, 7)));
+	list[i++] = new flip_normals(new yz_rect(0, 555, 0, 555, 555, green));
+	list[i++] = new yz_rect(0, 555, 0, 555, 0, red);
+	list[i++] = new xz_rect(113, 443, 127, 432, 554, light);
+	list[i++] = new flip_normals(new xz_rect(0, 555, 0, 555, 555, white));
+	list[i++] = new xz_rect(0, 555, 0, 555, 0, white);
+	list[i++] = new flip_normals(new xy_rect(0, 555, 0, 555, 555, white));
+	hitable* b1 = new translate(new rotate_y(new box(vec3(0, 0, 0), vec3(165, 165, 165), white), -18), vec3(130, 0, 65));
+	hitable* b2 = new translate(new rotate_y(new box(vec3(0, 0, 0), vec3(165, 330, 165), white), 15), vec3(265, 0, 295));
+	list[i++] = new constant_medium(b1, 0.01, new constant_texture(vec3(1.0, 1.0, 1.0)));
+	list[i++] = new constant_medium(b2, 0.01, new constant_texture(vec3(0.0, 0.0, 0.0)));
+	return new hitable_list(list, i);
+}
+
 hitable* simple_light() {
 	SKY = GRADIENT_SKY;
 	hitable** list = new hitable * [4];
@@ -130,12 +153,16 @@ hitable* two_perlin_spheres() {
 	return new hitable_list(list, 2);
 }
 
+int clamp(int a, int min, int max) {
+	return std::max(min, std::min(a, max));
+}
+
 int main() {
 	ofstream fout;
 	fout.open("img.ppm");
-	int nx = 1080/10;
-	int ny = 1080/10;
-	int ns = 128;
+	int nx = 1080/5;
+	int ny = 1080/5;
+	int ns = 128*2;
 
 	/*hitable* list[5];
 	
@@ -166,9 +193,18 @@ int main() {
 	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);*/
 
 	//scene setup for cornell box
-	hitable* world = cornell_box();
+	/*hitable* world = cornell_box();
 	vec3 lookfrom(278,278,-800);
 	vec3 lookat(278,278,0);
+	float dist_to_focus = 10.0;
+	float aperture = 0.0;
+	float vfov = 40.0;
+	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);*/
+
+	//scene setup for cornell smoke
+	hitable* world = cornell_smoke();
+	vec3 lookfrom(278, 278, -800);
+	vec3 lookat(278, 278, 0);
 	float dist_to_focus = 10.0;
 	float aperture = 0.0;
 	float vfov = 40.0;
@@ -204,7 +240,7 @@ int main() {
 				int ir = int(255.99 * col[0]);
 				int ig = int(255.99 * col[1]);
 				int ib = int(255.99 * col[2]);
-				fout << ir << " " << ig << " " << ib << "\n";
+				fout << clamp(ir, 0, 255) << " " << clamp(ig, 0, 255) << " " << clamp(ib, 0, 255) << "\n";
 
 			}
 

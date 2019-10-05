@@ -130,6 +130,7 @@
     <ClInclude Include="box.h" />
     <ClInclude Include="bvh_node.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="constant_medium.h" />
     <ClInclude Include="hitable.h" />
     <ClInclude Include="hitable_list.h" />
     <ClInclude Include="material.h" />
