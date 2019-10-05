@@ -4,6 +4,7 @@
 #include<iostream>
 #include<fstream>
 #include<algorithm>
+#include<chrono>
 #include "vec3.h"
 #include "ray.h"
 #include "hitable_list.h"
@@ -93,7 +94,10 @@ hitable* random_scene() {
 	list[i++] = new sphere(vec3(4, 1, 0), 1.0, mat);
 	list[i++] = new sphere(vec3(-4, 1, 0), 1.0, new metal(vec3(0.7, 0.6, 0.5), 0.0));
 
-	return new hitable_list(list, i);
+	hitable** f_list = new hitable * [1];
+	f_list[0] = new bvh_node(list, i, 0, 1);
+
+	return new hitable_list(f_list, 1);
 
 }
 
@@ -203,7 +207,17 @@ hitable* final_scene() {
 		box_list2[j] = new sphere(vec3(165 * random_number(), 165 * random_number(), 165 * random_number()), 10, white);
 	}
 	list[l++] = new translate(new rotate_y(new bvh_node(box_list2, ns, 0.0, 1.0), 15), vec3(-100, 270, 395));
-	return new hitable_list(list, l);
+	//return new hitable_list(list, l);
+
+	hitable** f_list = new hitable * [1];
+	auto start = std::chrono::high_resolution_clock::now();
+	cout << "Building BVH\n";
+	f_list[0] = new bvh_node(list, l, 0, 1);
+	cout << "Built BVH\n";
+	auto end = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+	cout << "BVH Building time = " << duration.count() << "\n";
+	return new hitable_list(f_list, 1);
 }
 
 int clamp(int a, int min, int max) {
@@ -211,11 +225,12 @@ int clamp(int a, int min, int max) {
 }
 
 int main() {
+
 	/*ofstream fout;
 	fout.open("img.ppm");*/
-	int nx = 1080 / 5;
-	int ny = 1080 / 5;
-	int ns = 128;
+	int nx = 1080 / 10;
+	int ny = 1080 / 10;
+	int ns = 50;
 
 	/*hitable* list[5];
 
@@ -227,7 +242,7 @@ int main() {
 
 	//hitable* world = new hitable_list(list, 5);
 
-	//scene setup for simple light
+	//scene setup for random scene
 	/*hitable* world = random_scene();
 	vec3 lookfrom(13, 2, 3);
 	vec3 lookat(0, 0, 0);
@@ -255,22 +270,23 @@ int main() {
 	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);*/
 
 	//scene setup for cornell smoke
-	hitable* world = cornell_smoke();
-	vec3 lookfrom(278, 278, -800);
-	vec3 lookat(278, 278, 0);
-	float dist_to_focus = 10.0;
-	float aperture = 0.0;
-	float vfov = 40.0;
-	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
-
-	//scene setup for final scene
-	/*hitable* world = final_scene();
+	/*hitable* world = cornell_smoke();
 	vec3 lookfrom(278, 278, -800);
 	vec3 lookat(278, 278, 0);
 	float dist_to_focus = 10.0;
 	float aperture = 0.0;
 	float vfov = 40.0;
 	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);*/
+
+	//scene setup for final scene
+	hitable* world = final_scene();
+	auto start = std::chrono::high_resolution_clock::now();
+	vec3 lookfrom(278, 278, -800);
+	vec3 lookat(278, 278, 0);
+	float dist_to_focus = 10.0;
+	float aperture = 0.0;
+	float vfov = 40.0;
+	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
 
 	//scene setup for perlin sphere
 	/*hitable* world = two_perlin_spheres();
@@ -282,7 +298,6 @@ int main() {
 	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);*/
 
 	unsigned char* buffer = new unsigned char[nx * ny * 3];
-
 	for (int j = ny - 1; j >= 0; j--) {
 
 		for (int i = 0; i < nx; i++) {
@@ -310,5 +325,9 @@ int main() {
 	}
 
 	stbi_write_png("img.png", nx, ny, 3, buffer, nx * 3);
+
+	auto stop = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop-start);
+	cout << "Rendering time = " << duration.count() << "\n";
 
 }
