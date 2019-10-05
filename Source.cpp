@@ -15,6 +15,11 @@
 
 using namespace std;
 
+int GRADIENT_SKY = 0;
+int BLACK_SKY = 1;
+
+int SKY = BLACK_SKY;
+
 vec3 color(const ray& r, hitable* world, int depth) {
 	hit_record rec;
 	if (world->hit(r, 0.001, FLT_MAX, rec)) {
@@ -29,15 +34,20 @@ vec3 color(const ray& r, hitable* world, int depth) {
 		}
 	}
 	else {
-		/*vec3 unit_direction = unit_vector(r.direction());
-		float t = 0.5 * (unit_direction.y() + 1.0);
-		return (1.0 - t) * vec3(1.0, 1.0, 1.0) + t * vec3(0.5, 0.7, 1.0);*/
-		return vec3(0, 0, 0);
+		if (SKY == GRADIENT_SKY)
+		{
+			vec3 unit_direction = unit_vector(r.direction());
+			float t = 0.5 * (unit_direction.y() + 1.0);
+			return (1.0 - t) * vec3(1.0, 1.0, 1.0) + t * vec3(0.5, 0.7, 1.0);
+		}
+		else if (SKY == BLACK_SKY) {
+			return vec3(0, 0, 0);
+		}
 	}
 }
 
 hitable* random_scene() {
-
+	SKY = GRADIENT_SKY;
 	int n = 500;
 	hitable** list = new hitable * [n+1];
 
@@ -82,6 +92,7 @@ hitable* random_scene() {
 }
 
 hitable* cornell_box() {
+	SKY = BLACK_SKY;
 	hitable** list = new hitable * [6];
 	int i = 0;
 	material* red = new lambertian(new constant_texture(vec3(0.65, 0.05, 0.05)));
@@ -98,6 +109,7 @@ hitable* cornell_box() {
 }
 
 hitable* simple_light() {
+	SKY = GRADIENT_SKY;
 	hitable** list = new hitable * [4];
 	list[0] = new sphere(vec3(0,-1000,0), 1000, new lambertian(new constant_texture(vec3(0.4, 0.2, 0.1))));
 	list[1] = new sphere(vec3(0, 2, 0), 2, new lambertian(new constant_texture(vec3(0.4, 0.2, 0.1))));
@@ -106,12 +118,21 @@ hitable* simple_light() {
 	return new hitable_list(list, 4);
 }
 
+hitable* two_perlin_spheres() {
+	SKY = GRADIENT_SKY;
+	texture* pertext = new noise_texture(4);
+	hitable** list = new hitable * [2];
+	list[0] = new sphere(vec3(0, -1000, 0), 1000, new lambertian(pertext));
+	list[1] = new sphere(vec3(0, 2, 0), 2, new lambertian(pertext));
+	return new hitable_list(list, 2);
+}
+
 int main() {
 	ofstream fout;
 	fout.open("img.ppm");
-	int nx = 1080/5;
-	int ny = 1080/5;
-	int ns = 128*4;
+	int nx = 1920/10;
+	int ny = 1080/10;
+	int ns = 128;
 
 	/*hitable* list[5];
 	
@@ -122,12 +143,41 @@ int main() {
 	list[4] = new sphere(vec3(-1, 0, -1), -0.45, new dielectric(1.5));*/
 
 	//hitable* world = new hitable_list(list, 5);
-	hitable* world = cornell_box();
+	
+	//scene setup for simple light
+	/*hitable* world = random_scene();
+	vec3 lookfrom(13, 2, 3);
+	vec3 lookat(0, 0, 0);
+	float dist_to_focus = 10.0;
+	float aperture = 0.1;
+	float vfov = 20.0;
+	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);*/
+
+	//scene setup for simple light
+	/*hitable* world = simple_light();
+	vec3 lookfrom(13, 2, 3);
+	vec3 lookat(0, 0, 0);
+	float dist_to_focus = 10.0;
+	float aperture = 0.1;
+	float vfov = 40.0;
+	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);*/
+
+	//scene setup for cornell box
+	/*hitable* world = cornell_box();
 	vec3 lookfrom(278,278,-800);
 	vec3 lookat(278,278,0);
 	float dist_to_focus = 10.0;
 	float aperture = 0.0;
 	float vfov = 40.0;
+	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);*/
+
+	//scene setup for perlin sphere
+	hitable* world = two_perlin_spheres();
+	vec3 lookfrom(13, 2, 3);
+	vec3 lookat(0, 0, 0);
+	float dist_to_focus = 10.0;
+	float aperture = 0.0;
+	float vfov = 20.0;
 	camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
 
 	if (fout) {
