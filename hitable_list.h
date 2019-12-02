@@ -3,6 +3,8 @@
 #define HITABLELISTH
 
 #include "hitable.h"
+#include "random_number.h"
+#include<iostream>
 
 class hitable_list : public hitable {
 public:
@@ -10,9 +12,28 @@ public:
 	hitable_list(hitable** l, int n) { list = l; list_size = n; }
 	virtual bool hit(const ray& r, float tmin, float tmax, hit_record& rec)const;
 	virtual bool bounding_box(float t0, float t1, aabb& box) const;
+	virtual float pdf_value(const vec3& o, const vec3& v) const;
+	virtual vec3 random(const vec3& o) const;
 	hitable** list;
 	int list_size;
 };
+
+float hitable_list::pdf_value(const vec3& o, const vec3& v) const {
+	float weight = 1.0f / (float)list_size;
+	float sum = 0.0f;
+	for (int i = 0; i < list_size; i++)
+	{
+		sum += weight * list[i]->pdf_value(o,v);
+	}
+	return sum;
+}
+
+vec3 hitable_list::random(const vec3& o) const {
+	float r = random_number();
+	int index = int(r * list_size);
+	//std::cout << index << " " << r << "\n";
+	return list[index]->random(o);
+}
 
 bool hitable_list::hit(const ray& r, float tmin, float tmax, hit_record& rec)const {
 

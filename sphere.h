@@ -4,6 +4,7 @@
 #define _USE_MATH_DEFINES
 
 #include "hitable.h"
+#include "onb.h"
 #include <math.h>
 
 class sphere : public hitable {
@@ -12,10 +13,32 @@ public:
 	sphere(vec3 cen, float r, material *m) : center(cen), radius(r), mat_ptr(m) {};
 	virtual bool hit(const ray& r, float tmin, float tmax, hit_record& rec)const;
 	virtual bool bounding_box(float t0, float t1, aabb& box) const;
+	virtual float pdf_value(const vec3& o, const vec3& v)const;
+	virtual vec3 random(const vec3& o) const;
 	vec3 center;
 	float radius;
 	material *mat_ptr;
 };
+
+float sphere::pdf_value(const vec3& o, const vec3&v) const {
+	hit_record rec;
+	if (this->hit(ray(o, v), 0.001f, FLT_MAX, rec)) {
+		float cos_theta_max = sqrt(1.0f - radius * radius / (center - o).squared_length());
+		float solid_angle = 2.0f * M_PI * (1.0f - cos_theta_max);
+		return 1.0f / solid_angle;
+	}
+	else {
+		return 0;
+	}
+}
+
+vec3 sphere::random(const vec3& o) const {
+	vec3 direction = center - o;
+	float distance_squared = direction.squared_length();
+	onb uvw;
+	uvw.build_from_w(direction);
+	return uvw.local(random_to_sphere(radius, distance_squared));
+}
 
 bool sphere::hit(const ray& r, float tmin, float tmax, hit_record& rec) const {
 	
