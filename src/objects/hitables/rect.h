@@ -1,6 +1,6 @@
 #pragma once
 #include "hitable.h"
-#include "aabb.h"
+#include "util/aabb.h"
 
 class xy_rect : public hitable {
 public:

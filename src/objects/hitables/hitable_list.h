@@ -3,7 +3,7 @@
 #define HITABLELISTH
 
 #include "hitable.h"
-#include "random_number.h"
+#include "util/rng/random_number.h"
 #include<iostream>
 
 class hitable_list : public hitable {

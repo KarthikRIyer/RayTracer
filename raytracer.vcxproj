@@ -18,6 +18,30 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\materials\material.h" />
+    <ClInclude Include="src\objects\camera\camera.h" />
+    <ClInclude Include="src\objects\hitables\box.h" />
+    <ClInclude Include="src\objects\hitables\bvh_node.h" />
+    <ClInclude Include="src\objects\hitables\constant_medium.h" />
+    <ClInclude Include="src\objects\hitables\hitable.h" />
+    <ClInclude Include="src\objects\hitables\hitable_list.h" />
+    <ClInclude Include="src\objects\hitables\rect.h" />
+    <ClInclude Include="src\objects\hitables\sphere.h" />
+    <ClInclude Include="src\textures\perlin.h" />
+    <ClInclude Include="src\textures\texture.h" />
+    <ClInclude Include="src\util\aabb.h" />
+    <ClInclude Include="src\util\math\onb.h" />
+    <ClInclude Include="src\util\math\ray.h" />
+    <ClInclude Include="src\util\math\vec3.h" />
+    <ClInclude Include="src\util\pdf\pdf.h" />
+    <ClInclude Include="src\util\rng\random_number.h" />
+    <ClInclude Include="src\util\stb\stb_image.h" />
+    <ClInclude Include="src\util\stb\stb_image_write.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{77B00D47-11F5-4481-8F84-2D919825D0BF}</ProjectGuid>
@@ -122,30 +146,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Source.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="aabb.h" />
-    <ClInclude Include="box.h" />
-    <ClInclude Include="bvh_node.h" />
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="constant_medium.h" />
-    <ClInclude Include="hitable.h" />
-    <ClInclude Include="hitable_list.h" />
-    <ClInclude Include="material.h" />
-    <ClInclude Include="onb.h" />
-    <ClInclude Include="pdf.h" />
-    <ClInclude Include="perlin.h" />
-    <ClInclude Include="random_number.h" />
-    <ClInclude Include="ray.h" />
-    <ClInclude Include="rect.h" />
-    <ClInclude Include="sphere.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="stb_image_write.h" />
-    <ClInclude Include="texture.h" />
-    <ClInclude Include="vec3.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

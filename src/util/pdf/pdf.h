@@ -2,10 +2,10 @@
 #define _USE_MATH_DEFINES
 
 #include <math.h>
-#include "vec3.h"
-#include "onb.h"
-#include "random_number.h"
-#include "hitable.h"
+#include "util/math/vec3.h"
+#include "util/math/onb.h"
+#include "util/rng/random_number.h"
+#include "objects/hitables/hitable.h"
 
 class pdf {
 public:

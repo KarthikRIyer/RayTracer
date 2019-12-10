@@ -1,6 +1,6 @@
 #pragma once
-#include "vec3.h"
-#include "ray.h"
+#include "math/vec3.h"
+#include "math/ray.h"
 
 inline float ffmin(float a, float b) { return a < b ? a : b; }
 inline float ffmax(float a, float b) { return a > b ? a : b; }

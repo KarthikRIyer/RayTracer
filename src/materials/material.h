@@ -3,12 +3,12 @@
 #define MATERIALH
 
 #include<math.h>
-#include "random_number.h"
-#include "ray.h"
-#include "hitable_list.h"
-#include "texture.h"
-#include "onb.h"
-#include "pdf.h"
+#include "util/rng/random_number.h"
+#include "util/math/ray.h"
+#include "objects/hitables/hitable_list.h"
+#include "textures/texture.h"
+#include "util/math/onb.h"
+#include "util/pdf/pdf.h"
 
 struct scatter_record {
 	ray specular_ray;

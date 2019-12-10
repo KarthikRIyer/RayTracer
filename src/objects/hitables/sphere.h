@@ -4,7 +4,7 @@
 #define _USE_MATH_DEFINES
 
 #include "hitable.h"
-#include "onb.h"
+#include "util/math/onb.h"
 #include <math.h>
 
 class sphere : public hitable {

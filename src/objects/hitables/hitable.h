@@ -4,8 +4,8 @@
 #define _USE_MATH_DEFINES
 
 #include <math.h>
-#include "ray.h"
-#include "aabb.h"
+#include "util/math/ray.h"
+#include "util/aabb.h"
 
 class material;
 

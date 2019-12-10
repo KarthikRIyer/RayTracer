@@ -13,69 +13,99 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\materials">
+      <UniqueIdentifier>{625f6740-3658-43aa-ac9d-25d3e8104613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects">
+      <UniqueIdentifier>{2a40541e-3067-4ada-bae9-5522c046681c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects\camera">
+      <UniqueIdentifier>{b0b471bc-5b27-4030-b8c9-ee11caa6afd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\objects\hitables">
+      <UniqueIdentifier>{2ae2ccb5-80f3-4510-9ede-d996986c1d77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\textures">
+      <UniqueIdentifier>{e9bba9aa-065b-4eaa-826b-f0fb7c168dda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util">
+      <UniqueIdentifier>{479e5a3e-04fe-457e-9ed2-5fd59a86f967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\math">
+      <UniqueIdentifier>{98266223-9f67-460f-bf50-a64e65aa63cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\pdf">
+      <UniqueIdentifier>{623144fb-505f-4bea-89f5-bb647d6be644}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\rng">
+      <UniqueIdentifier>{bf547a3b-9362-4a08-8b4b-bdc797843394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\stb">
+      <UniqueIdentifier>{1a63e768-ac2d-42e8-9c50-8f67cbe8a595}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="src\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="vec3.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\materials\material.h">
+      <Filter>Source Files\materials</Filter>
     </ClInclude>
-    <ClInclude Include="ray.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\objects\camera\camera.h">
+      <Filter>Source Files\objects\camera</Filter>
     </ClInclude>
-    <ClInclude Include="hitable.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\objects\hitables\box.h">
+      <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
-    <ClInclude Include="sphere.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\objects\hitables\bvh_node.h">
+      <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
-    <ClInclude Include="hitable_list.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\objects\hitables\constant_medium.h">
+      <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\objects\hitables\hitable.h">
+      <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
-    <ClInclude Include="material.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\objects\hitables\hitable_list.h">
+      <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
-    <ClInclude Include="random_number.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\objects\hitables\sphere.h">
+      <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\textures\perlin.h">
+      <Filter>Source Files\textures</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\textures\texture.h">
+      <Filter>Source Files\textures</Filter>
     </ClInclude>
-    <ClInclude Include="rect.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\util\math\onb.h">
+      <Filter>Source Files\util\math</Filter>
     </ClInclude>
-    <ClInclude Include="aabb.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\util\math\ray.h">
+      <Filter>Source Files\util\math</Filter>
     </ClInclude>
-    <ClInclude Include="bvh_node.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\util\math\vec3.h">
+      <Filter>Source Files\util\math</Filter>
     </ClInclude>
-    <ClInclude Include="perlin.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\util\pdf\pdf.h">
+      <Filter>Source Files\util\pdf</Filter>
     </ClInclude>
-    <ClInclude Include="box.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\util\rng\random_number.h">
+      <Filter>Source Files\util\rng</Filter>
     </ClInclude>
-    <ClInclude Include="constant_medium.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\util\stb\stb_image.h">
+      <Filter>Source Files\util\stb</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image_write.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\util\stb\stb_image_write.h">
+      <Filter>Source Files\util\stb</Filter>
     </ClInclude>
-    <ClInclude Include="onb.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\util\aabb.h">
+      <Filter>Source Files\util</Filter>
     </ClInclude>
-    <ClInclude Include="pdf.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\objects\hitables\rect.h">
+      <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

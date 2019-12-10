@@ -3,8 +3,8 @@
 #define CAMERAH
 #define _USE_MATH_DEFINES
 #include<math.h>
-#include "ray.h"
-#include "random_number.h"
+#include "util/math/ray.h"
+#include "util/rng/random_number.h"
 
 class camera {
 public:
