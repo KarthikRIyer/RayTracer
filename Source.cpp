@@ -28,9 +28,9 @@ int BLACK_SKY = 1;
 
 int SKY = BLACK_SKY;
 
-int nx = 1080 / 5;
-int ny = 1080 / 5;
-int ns = 100;
+int nx = 1080 / 2;
+int ny = 1080 / 2;
+int ns = 500;
 
 vec3 lookfrom(0,0,0);
 vec3 lookat(0,0,0);

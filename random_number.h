@@ -4,13 +4,16 @@
 #include <chrono>
 #include <iostream>
 float random_number() {
-	std::mt19937_64 rng;
+	/*std::mt19937_64 rng;
 	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
 	std::seed_seq ss{uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed>>32)};
 	rng.seed(ss);
 	std::uniform_real_distribution<float> unif(0, 1);
+	float r = unif(rng);
+	if (r == 1.0f) return random_number();
+	return r;*/
 
-	return unif(rng);
+	return (float)rand() / (float)(RAND_MAX + 1);
 }
 
 vec3 random_in_unit_sphere() {
