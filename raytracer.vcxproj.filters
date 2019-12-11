@@ -107,5 +107,17 @@
     <ClInclude Include="src\objects\hitables\rect.h">
       <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
+    <ClInclude Include="src\objects\hitables\triangle.h">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\math\vertex.h">
+      <Filter>Source Files\util\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\mesh.h">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\model.h">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

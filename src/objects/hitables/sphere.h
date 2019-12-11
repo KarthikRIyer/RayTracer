@@ -4,7 +4,8 @@
 #define _USE_MATH_DEFINES
 
 #include "hitable.h"
-#include "util/math/onb.h"
+#include "../../util/math/onb.h"
+#include "../../util/rng/random_number.h"
 #include <math.h>
 
 class sphere : public hitable {

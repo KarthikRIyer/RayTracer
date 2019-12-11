@@ -1,5 +1,5 @@
 #pragma once
-#include "util/math/vec3.h"
+#include "../math/vec3.h"
 #include <random>
 #include <chrono>
 #include <iostream>

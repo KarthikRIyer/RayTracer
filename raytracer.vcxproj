@@ -22,6 +22,9 @@
     <ClCompile Include="src\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\objects\hitables\mesh.h" />
+    <ClInclude Include="src\objects\hitables\model.h" />
+    <ClInclude Include="src\objects\hitables\triangle.h" />
     <ClInclude Include="src\materials\material.h" />
     <ClInclude Include="src\objects\camera\camera.h" />
     <ClInclude Include="src\objects\hitables\box.h" />
@@ -37,6 +40,7 @@
     <ClInclude Include="src\util\math\onb.h" />
     <ClInclude Include="src\util\math\ray.h" />
     <ClInclude Include="src\util\math\vec3.h" />
+    <ClInclude Include="src\util\math\vertex.h" />
     <ClInclude Include="src\util\pdf\pdf.h" />
     <ClInclude Include="src\util\rng\random_number.h" />
     <ClInclude Include="src\util\stb\stb_image.h" />
@@ -93,7 +97,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>dependencies\include;$(IncludePath)</IncludePath>
+    <LibraryPath>dependencies\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -144,6 +151,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -11,6 +11,8 @@
 #include "objects/hitables/rect.h"
 #include "objects/hitables/box.h"
 #include "objects/hitables/constant_medium.h"
+#include "objects/hitables/triangle.h"
+#include "objects/hitables/model.h"
 #include "objects/camera/camera.h"
 #include "util/math/vec3.h"
 #include "util/math/ray.h"
@@ -38,9 +40,10 @@ float dist_to_focus = 0;
 float aperture = 0.0;
 float vfov = 40.0;
 camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
-hitable* light_hitable;
+hitable_list light_hitable_list;
+vector<hitable*> lightsVector;
 
-vec3 color(const ray& r, hitable* world, hitable* light_shape, int depth) {
+vec3 color(const ray& r, hitable* world, hitable_list* light_shape, int depth) {
 	hit_record hrec;
 	if (world->hit(r, 0.001, FLT_MAX, hrec)) {
 		scatter_record srec;
@@ -50,12 +53,22 @@ vec3 color(const ray& r, hitable* world, hitable* light_shape, int depth) {
 				return srec.attenuation * color(srec.specular_ray, world, light_shape, depth+1);
 			}
 			else {
-				hitable_pdf plight(light_shape, hrec.p);
-				mixture_pdf p(&plight, srec.pdf_ptr);
-				ray scattered = ray(hrec.p, p.generate(), r.time());
-				float pdf_val = p.value(scattered.direction());
-				delete srec.pdf_ptr;
-				return emitted + srec.attenuation * hrec.mat_ptr->scattering_pdf(r, hrec, scattered) * color(scattered, world, light_shape, depth + 1) / pdf_val;
+				if (light_shape->list_size == 0)
+				{
+					cosine_pdf p(hrec.normal);
+					ray scattered = ray(hrec.p, p.generate(), r.time());
+					float pdf_val = p.value(scattered.direction());
+					delete srec.pdf_ptr;
+					return emitted + srec.attenuation * hrec.mat_ptr->scattering_pdf(r, hrec, scattered) * color(scattered, world, light_shape, depth + 1) / pdf_val;
+				}
+				else {
+					hitable_pdf plight(light_shape, hrec.p);
+					mixture_pdf p(&plight, srec.pdf_ptr);
+					ray scattered = ray(hrec.p, p.generate(), r.time());
+					float pdf_val = p.value(scattered.direction());
+					delete srec.pdf_ptr;
+					return emitted + srec.attenuation * hrec.mat_ptr->scattering_pdf(r, hrec, scattered) * color(scattered, world, light_shape, depth + 1) / pdf_val;
+				}
 			}
 		}
 		else {
@@ -76,6 +89,11 @@ vec3 color(const ray& r, hitable* world, hitable* light_shape, int depth) {
 }
 
 hitable* cornell_box() {
+
+	nx = 1080 / 2;
+	ny = 1080 / 2;
+	ns = 10;
+
 	SKY = BLACK_SKY;
 
 	lookfrom = vec3(278, 278, -800);
@@ -85,7 +103,7 @@ hitable* cornell_box() {
 	vfov = 40.0;
 	cam = camera(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
 
-	hitable** list = new hitable * [8];
+	hitable** list = new hitable * [9];
 	int i = 0;
 	material* red = new lambertian(new constant_texture(vec3(0.65, 0.05, 0.05)));
 	material* white = new lambertian(new constant_texture(vec3(0.73, 0.73, 0.73)));
@@ -95,6 +113,12 @@ hitable* cornell_box() {
 	material* glass = new dielectric(1.5f);
 	list[i++] = new flip_normals(new yz_rect(0, 555, 0, 555, 555, green));
 	list[i++] = new yz_rect(0, 555, 0, 555, 0, red);
+	/*vertex v1(vec3(0, 0, 0), vec3(1, 0, 0), 0, 0);
+	vertex v2(vec3(0, 0, 555), vec3(1, 0, 0), 0, 0);
+	vertex v3(vec3(0, 555, 0), vec3(1, 0, 0), 0, 0);
+	vertex v4(vec3(0, 555, 555), vec3(1, 0, 0), 0, 0);
+	list[i++] = new triangle(v1, v3, v2, red);
+	list[i++] = new triangle(v2, v3, v4, red);*/
 	list[i++] = new flip_normals(new xz_rect(213, 343, 227, 332, 554, light));
 	list[i++] = new flip_normals(new xz_rect(0, 555, 0, 555, 555, white));
 	list[i++] = new xz_rect(0, 555, 0, 555, 0, white);
@@ -103,7 +127,43 @@ hitable* cornell_box() {
 	list[i++] = new sphere(vec3(190.0f, 90.0f, 190.0f), 90, glass);
 	list[i++] = new translate(new rotate_y(new box(vec3(0, 0, 0), vec3(165, 330, 165), white), 15), vec3(265, 0, 295));
 
+	lightsVector.clear();
+	lightsVector.push_back(list[2]);
+	lightsVector.push_back(list[6]);
+
 	return new hitable_list(list, i);
+}
+
+hitable* model_scene() {
+
+	nx = 1080 / 2;
+	ny = 1080 / 4;
+	ns = 100;
+
+	SKY = BLACK_SKY;
+
+	lookfrom = vec3(0, 1, 4);
+	lookat = vec3(0, 0, 0);
+	dist_to_focus = 10;
+	aperture = 0;
+	vfov = 40.0;
+	cam = camera(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
+
+	material* white = new lambertian(new constant_texture(vec3(0.73, 0.73, 0.73)));
+	material* ground = new lambertian(new constant_texture(vec3(0.48, 0.83, 0.53)));
+
+	hitable** list = new hitable * [3];
+
+	int i = 0;
+	list[i++] = new sphere(vec3(0, -1000, 0), 998.7f, ground);
+	list[i++] = new model("models/monkey.obj", white);
+	list[i++] = new flip_normals(new xz_rect(-2, 2, -2, 2, 3, new diffuse_light(new constant_texture(vec3(4, 4, 4)))));
+
+	lightsVector.clear();
+	lightsVector.push_back(list[2]);
+
+	return new hitable_list(list, i);
+
 }
 
 int clamp(int a, int min, int max) {
@@ -121,17 +181,19 @@ inline vec3 de_nan(const vec3& c) {
 int main() {
 
 	//scene setup for cornell box
-	hitable* world = cornell_box();
+	hitable* world = model_scene();
 	auto start = std::chrono::high_resolution_clock::now();
-	
-	light_hitable = new xz_rect(213, 343, 227, 332, 554, 0);
-	hitable* glass_sphere = new sphere(vec3(190.0f, 90.0f, 190.0f), 90, 0);
-	hitable* a[2];
-	a[0] = light_hitable;
-	a[1] = glass_sphere;
-	hitable_list hlist(a,2);
+	//int s = lightsVector.size();
+	//hitable* a[2];
+	//a[0] = new xz_rect(-1, 1, -1, 1, 3, 0);
+	/*a[0] = new flip_normals(new xz_rect(213, 343, 227, 332, 554, 0));
+	a[1] = new sphere(vec3(190.0f, 90.0f, 190.0f), 90, 0);
+	light_hitable_list = hitable_list(a, 2);*/
+	light_hitable_list = hitable_list(lightsVector);
+	//light_hitable_list = hitable_list(NULL, 0);
 
 	unsigned char* buffer = new unsigned char[nx * ny * 3];
+
 	for (int j = ny - 1; j >= 0; j--) {
 
 		for (int i = 0; i < nx; i++) {
@@ -142,7 +204,7 @@ int main() {
 
 				ray r = cam.get_ray(u, v);
 				vec3 p = r.point_at_parameter(2.0);
-				col += de_nan(color(r, world, &hlist, 0));
+				col += de_nan(color(r, world, &light_hitable_list, 0));
 			}
 			col /= float(ns);
 			col = vec3(sqrt(col[0]), sqrt(col[1]), sqrt(col[2]));

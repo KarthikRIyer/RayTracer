@@ -4,8 +4,8 @@
 #define _USE_MATH_DEFINES
 
 #include <math.h>
-#include "util/math/ray.h"
-#include "util/aabb.h"
+#include "../../util/math/ray.h"
+#include "../../util/aabb.h"
 
 class material;
 
@@ -46,6 +46,15 @@ public:
 			return false;
 		}
 	}
+
+	virtual float pdf_value(const vec3& o, const vec3& v)const { 
+		return ptr->pdf_value(o, v);
+	}
+
+	virtual vec3 random(const vec3& o) const { 
+		return ptr->random(o); 
+	}
+
 	virtual bool bounding_box(float t0, float t1, aabb& box) const {
 		return ptr->bounding_box(t0, t1, box);
 	}
@@ -57,6 +66,13 @@ public:
 	translate(hitable* p, const vec3& displacement) : ptr(p), offset(displacement) {}
 	virtual bool hit(const ray& r, float t0, float t1, hit_record& rec) const;
 	virtual bool bounding_box(float t0, float t1, aabb& box) const;
+	virtual float pdf_value(const vec3& o, const vec3& v)const {
+		return ptr->pdf_value(o, v);
+	}
+
+	virtual vec3 random(const vec3& o) const {
+		return ptr->random(o);
+	}
 	hitable *ptr;
 	vec3 offset;
 };
@@ -89,6 +105,13 @@ public:
 	virtual bool bounding_box(float t0, float t1, aabb& box) const {
 		box = bbox;
 		return hasbox;
+	}
+	virtual float pdf_value(const vec3& o, const vec3& v)const {
+		return ptr->pdf_value(o, v);
+	}
+
+	virtual vec3 random(const vec3& o) const {
+		return ptr->random(o);
 	}
 	hitable* ptr;
 	float sin_theta;
