@@ -136,13 +136,14 @@ hitable* cornell_box() {
 
 hitable* model_scene() {
 
+	std::cout << "Building Scene\n";
 	nx = 1080 / 2;
 	ny = 1080 / 4;
 	ns = 100;
 
 	SKY = BLACK_SKY;
 
-	lookfrom = vec3(0, 1, 4);
+	lookfrom = vec3(0, 0.3, 4);
 	lookat = vec3(0, 0, 0);
 	dist_to_focus = 10;
 	aperture = 0;
@@ -151,17 +152,19 @@ hitable* model_scene() {
 
 	material* white = new lambertian(new constant_texture(vec3(0.73, 0.73, 0.73)));
 	material* ground = new lambertian(new constant_texture(vec3(0.48, 0.83, 0.53)));
+	material* glass = new dielectric(1.5f);
 
 	hitable** list = new hitable * [3];
 
 	int i = 0;
-	list[i++] = new sphere(vec3(0, -1000, 0), 998.7f, ground);
-	list[i++] = new model("models/monkey.obj", white);
+	list[i++] = new sphere(vec3(0, -1000, 0), 999.0f, ground);
+	list[i++] = new rotate_y(new model("models/dragon.obj", white), 90.0f);
 	list[i++] = new flip_normals(new xz_rect(-2, 2, -2, 2, 3, new diffuse_light(new constant_texture(vec3(4, 4, 4)))));
 
 	lightsVector.clear();
 	lightsVector.push_back(list[2]);
 
+	std::cout << "Rendering Scene\n";
 	return new hitable_list(list, i);
 
 }
@@ -183,14 +186,7 @@ int main() {
 	//scene setup for cornell box
 	hitable* world = model_scene();
 	auto start = std::chrono::high_resolution_clock::now();
-	//int s = lightsVector.size();
-	//hitable* a[2];
-	//a[0] = new xz_rect(-1, 1, -1, 1, 3, 0);
-	/*a[0] = new flip_normals(new xz_rect(213, 343, 227, 332, 554, 0));
-	a[1] = new sphere(vec3(190.0f, 90.0f, 190.0f), 90, 0);
-	light_hitable_list = hitable_list(a, 2);*/
 	light_hitable_list = hitable_list(lightsVector);
-	//light_hitable_list = hitable_list(NULL, 0);
 
 	unsigned char* buffer = new unsigned char[nx * ny * 3];
 
