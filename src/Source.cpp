@@ -139,7 +139,7 @@ hitable* model_scene() {
 	std::cout << "Building Scene\n";
 	nx = 1080 / 2;
 	ny = 1080 / 4;
-	ns = 100;
+	ns = 200;
 
 	SKY = BLACK_SKY;
 
@@ -157,9 +157,9 @@ hitable* model_scene() {
 	hitable** list = new hitable * [3];
 
 	int i = 0;
-	list[i++] = new sphere(vec3(0, -1000, 0), 999.0f, ground);
-	list[i++] = new rotate_y(new model("models/dragon.obj", white), 90.0f);
-	list[i++] = new flip_normals(new xz_rect(-2, 2, -2, 2, 3, new diffuse_light(new constant_texture(vec3(4, 4, 4)))));
+	list[i++] = new sphere(vec3(0, -1000, 0), 998.3f, ground);
+	list[i++] = new model("models/monkey.obj", white);
+	list[i++] = new sphere(vec3(0, 0, 6), 1.7, new diffuse_light(new constant_texture(vec3(6, 6, 6))));
 
 	lightsVector.clear();
 	lightsVector.push_back(list[2]);
