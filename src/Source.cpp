@@ -93,7 +93,7 @@ hitable* cornell_box() {
 
 	nx = 1080 / 2;
 	ny = 1080 / 2;
-	ns = 50;
+	ns = 500;
 
 	SKY = BLACK_SKY;
 
@@ -133,7 +133,7 @@ hitable* model_scene() {
 	std::cout << "Building Scene\n";
 	nx = 1080 / 2;
 	ny = 1080 / 4;
-	ns = 10;
+	ns = 100;
 
 	SKY = BLACK_SKY;
 
