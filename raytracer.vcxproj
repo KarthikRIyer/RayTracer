@@ -37,6 +37,9 @@
     <ClInclude Include="src\textures\perlin.h" />
     <ClInclude Include="src\textures\texture.h" />
     <ClInclude Include="src\util\aabb.h" />
+    <ClInclude Include="src\util\denoiser\denoiser.h" />
+    <ClInclude Include="src\util\helper\helper.h" />
+    <ClInclude Include="src\util\image\image.h" />
     <ClInclude Include="src\util\math\onb.h" />
     <ClInclude Include="src\util\math\ray.h" />
     <ClInclude Include="src\util\math\vec3.h" />
@@ -121,7 +124,12 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoiseDebug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "dependencies\OpenImageDenoiseDebug.dll" "$(TargetDir)OpenImageDenoise.dll"
+copy "dependencies\tbbDebug.dll" "$(TargetDir)tbb.dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -151,8 +159,12 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoiseDebug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>copy "dependencies\OpenImageDenoiseRelease.dll" "$(TargetDir)OpenImageDenoise.dll"
+copy "dependencies\tbbRelease.dll" "$(TargetDir)tbb.dll"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

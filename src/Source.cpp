@@ -1,5 +1,4 @@
 #define STB_IMAGE_IMPLEMENTATION
-#define STB_IMAGE_WRITE_IMPLEMENTATION
 
 #include<iostream>
 #include<fstream>
@@ -19,7 +18,8 @@
 #include "util/pdf/pdf.h"
 #include "util/rng/random_number.h"
 #include "util/stb/stb_image.h"
-#include "util/stb/stb_image_write.h"
+#include "util/image/image.h"
+#include "util/denoiser/denoiser.h"
 #include "materials/material.h"
 #include "textures/texture.h"
 
@@ -33,6 +33,7 @@ int SKY = BLACK_SKY;
 int nx = 1080 / 2;
 int ny = 1080 / 2;
 int ns = 500;
+bool DENOISE_IMAGE = true;
 
 vec3 lookfrom(0,0,0);
 vec3 lookat(0,0,0);
@@ -92,7 +93,7 @@ hitable* cornell_box() {
 
 	nx = 1080 / 2;
 	ny = 1080 / 2;
-	ns = 10;
+	ns = 50;
 
 	SKY = BLACK_SKY;
 
@@ -113,17 +114,10 @@ hitable* cornell_box() {
 	material* glass = new dielectric(1.5f);
 	list[i++] = new flip_normals(new yz_rect(0, 555, 0, 555, 555, green));
 	list[i++] = new yz_rect(0, 555, 0, 555, 0, red);
-	/*vertex v1(vec3(0, 0, 0), vec3(1, 0, 0), 0, 0);
-	vertex v2(vec3(0, 0, 555), vec3(1, 0, 0), 0, 0);
-	vertex v3(vec3(0, 555, 0), vec3(1, 0, 0), 0, 0);
-	vertex v4(vec3(0, 555, 555), vec3(1, 0, 0), 0, 0);
-	list[i++] = new triangle(v1, v3, v2, red);
-	list[i++] = new triangle(v2, v3, v4, red);*/
 	list[i++] = new flip_normals(new xz_rect(213, 343, 227, 332, 554, light));
 	list[i++] = new flip_normals(new xz_rect(0, 555, 0, 555, 555, white));
 	list[i++] = new xz_rect(0, 555, 0, 555, 0, white);
 	list[i++] = new flip_normals(new xy_rect(0, 555, 0, 555, 555, white));
-	//list[i++] = new translate(new rotate_y(new box(vec3(0, 0, 0), vec3(165, 165, 165), white), -18), vec3(130, 0, 65));
 	list[i++] = new sphere(vec3(190.0f, 90.0f, 190.0f), 90, glass);
 	list[i++] = new translate(new rotate_y(new box(vec3(0, 0, 0), vec3(165, 330, 165), white), 15), vec3(265, 0, 295));
 
@@ -139,7 +133,7 @@ hitable* model_scene() {
 	std::cout << "Building Scene\n";
 	nx = 1080 / 2;
 	ny = 1080 / 4;
-	ns = 200;
+	ns = 10;
 
 	SKY = BLACK_SKY;
 
@@ -169,10 +163,6 @@ hitable* model_scene() {
 
 }
 
-int clamp(int a, int min, int max) {
-	return std::max(min, std::min(a, max));
-}
-
 inline vec3 de_nan(const vec3& c) {
 	vec3 temp = c;
 	if (!(temp[0] == temp[0])) temp[0] = 0;
@@ -183,13 +173,13 @@ inline vec3 de_nan(const vec3& c) {
 
 int main() {
 
-	//scene setup for cornell box
-	hitable* world = model_scene();
+	//scene setup
+	hitable* world = cornell_box();
 	auto start = std::chrono::high_resolution_clock::now();
 	light_hitable_list = hitable_list(lightsVector);
+	string filePath = "img.png";
 
-	unsigned char* buffer = new unsigned char[nx * ny * 3];
-
+	Image image(nx, ny);
 	for (int j = ny - 1; j >= 0; j--) {
 
 		for (int i = 0; i < nx; i++) {
@@ -205,18 +195,25 @@ int main() {
 			col /= float(ns);
 			col = vec3(sqrt(col[0]), sqrt(col[1]), sqrt(col[2]));
 
-			int ir = int(255.99 * col[0]);
-			int ig = int(255.99 * col[1]);
-			int ib = int(255.99 * col[2]);
+			image[3 * i + 3 * nx * (ny - 1 - j)] = col[0];
+			image[3 * i + 3 * nx * (ny - 1 - j) + 1] = col[1];
+			image[3 * i + 3 * nx * (ny - 1 - j) + 2] = col[2];
 
-			buffer[3 * i + 3 * nx * (ny - 1 - j)] = clamp(ir, 0, 255);
-			buffer[3 * i + 3 * nx * (ny - 1 - j) + 1] = clamp(ig, 0, 255);
-			buffer[3 * i + 3 * nx * (ny - 1 - j) + 2] = clamp(ib, 0, 255);
 		}
 
 	}
 
-	stbi_write_png("img.png", nx, ny, 3, buffer, nx * 3);
+	if (DENOISE_IMAGE)
+	{
+		Image outputImage(image.getWidth(), image.getHeight());
+		Denoiser imageDenoiser(image.getBuffer(), outputImage.getBuffer(), image.getWidth(), image.getHeight(), image.getChannels());
+		imageDenoiser.executeDenoiser();
+		outputImage.saveImage(filePath);
+	}
+	else
+	{
+		image.saveImage(filePath);
+	}
 
 	auto stop = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop-start);

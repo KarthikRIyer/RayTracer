@@ -43,6 +43,15 @@
     <Filter Include="Source Files\util\stb">
       <UniqueIdentifier>{1a63e768-ac2d-42e8-9c50-8f67cbe8a595}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\util\denoiser">
+      <UniqueIdentifier>{9b2520f9-2d58-4b82-948e-12c6fe9f972e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\image">
+      <UniqueIdentifier>{537b97f7-8247-4565-a572-602e3fdd76ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\helper">
+      <UniqueIdentifier>{03a34512-c887-41d3-8323-9f93e17ecc93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Source.cpp">
@@ -118,6 +127,15 @@
     </ClInclude>
     <ClInclude Include="src\objects\hitables\model.h">
       <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\denoiser\denoiser.h">
+      <Filter>Source Files\util\denoiser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\image\image.h">
+      <Filter>Source Files\util\image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\helper\helper.h">
+      <Filter>Source Files\util\helper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
