@@ -5,6 +5,7 @@
 #include "hitable.h"
 #include "util/rng/random_number.h"
 #include<iostream>
+#include<mutex>
 
 class hitable_list : public hitable {
 public:
@@ -20,6 +21,7 @@ public:
 };
 
 float hitable_list::pdf_value(const vec3& o, const vec3& v) const {
+
 	float weight = 1.0f / (float)list_size;
 	float sum = 0.0f;
 	for (int i = 0; i < list_size; i++)

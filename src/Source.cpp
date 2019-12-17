@@ -4,6 +4,7 @@
 #include<fstream>
 #include<algorithm>
 #include<chrono>
+#include<thread>
 #include "objects/hitables/hitable_list.h"
 #include "objects/hitables/bvh_node.h"
 #include "objects/hitables/sphere.h"
@@ -20,6 +21,8 @@
 #include "util/stb/stb_image.h"
 #include "util/image/image.h"
 #include "util/denoiser/denoiser.h"
+#include "render_process/tile_pool.h"
+#include "render_process/render_settings.h"
 #include "materials/material.h"
 #include "textures/texture.h"
 
@@ -33,7 +36,8 @@ int SKY = BLACK_SKY;
 int nx = 1080 / 2;
 int ny = 1080 / 2;
 int ns = 500;
-bool DENOISE_IMAGE = true;
+bool DENOISE_IMAGE = false;
+int maxThreads;
 
 vec3 lookfrom(0,0,0);
 vec3 lookat(0,0,0);
@@ -133,7 +137,7 @@ hitable* model_scene() {
 	std::cout << "Building Scene\n";
 	nx = 1080 / 2;
 	ny = 1080 / 4;
-	ns = 100;
+	ns = 500;
 
 	SKY = BLACK_SKY;
 
@@ -171,6 +175,37 @@ inline vec3 de_nan(const vec3& c) {
 	return temp;
 }
 
+void renderScene(hitable* world, Image* image, TilePool* tilePool) {
+
+	while (tilePool->getPoolSize() > 0)
+	{	
+		Tile tile = tilePool->getNextTile();
+
+		for (int j = tile.yMax - 1; j >= tile.yMin; j--) {
+
+			for (int i = tile.xMin; i < tile.xMax; i++) {
+				vec3 col(0, 0, 0);
+				for (int s = 0; s < ns; s++) {
+					float u = (float(i) + random_number()) / float(nx);
+					float v = (float(j) + random_number()) / float(ny);
+
+					ray r = cam.get_ray(u, v);
+					vec3 p = r.point_at_parameter(2.0);
+					col += de_nan(color(r, world, &light_hitable_list, 0));
+				}
+				col /= float(ns);
+				col = vec3(sqrt(col[0]), sqrt(col[1]), sqrt(col[2]));
+
+				(*image)[3 * i + 3 * nx * (ny - 1 - j)] = col[0];
+				(*image)[3 * i + 3 * nx * (ny - 1 - j) + 1] = col[1];
+				(*image)[3 * i + 3 * nx * (ny - 1 - j) + 2] = col[2];
+
+			}
+
+		}
+	}
+}
+
 int main() {
 
 	//scene setup
@@ -180,7 +215,28 @@ int main() {
 	string filePath = "img.png";
 
 	Image image(nx, ny);
-	for (int j = ny - 1; j >= 0; j--) {
+	TilePool tilePool(nx, ny, 50);
+
+	//maxThreads = std::thread::hardware_concurrency();
+	maxThreads = 1;
+	std::vector<std::thread> renderThreads;
+	renderThreads.resize(maxThreads);
+
+	//RenderSettings renderSettings{world, &image, &tilePool, ns, BLACK_SKY, false, "img.png"};
+
+	for (unsigned int i = 0; i < maxThreads; i++)
+	{
+		renderThreads[i] = std::thread(&renderScene, world, &image, &tilePool);
+	}
+	for (unsigned int i = 0; i < maxThreads; i++)
+	{
+		if (renderThreads[i].joinable())
+		{
+			renderThreads[i].join();
+		}
+	}
+
+	/*for (int j = ny - 1; j >= 0; j--) {
 
 		for (int i = 0; i < nx; i++) {
 			vec3 col(0, 0, 0);
@@ -201,7 +257,7 @@ int main() {
 
 		}
 
-	}
+	}*/
 
 	if (DENOISE_IMAGE)
 	{

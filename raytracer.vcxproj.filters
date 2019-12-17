@@ -52,6 +52,9 @@
     <Filter Include="Source Files\util\helper">
       <UniqueIdentifier>{03a34512-c887-41d3-8323-9f93e17ecc93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\render_process">
+      <UniqueIdentifier>{03ae1849-fa9b-4ac7-aaab-7a4a63ec71fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Source.cpp">
@@ -136,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="src\util\helper\helper.h">
       <Filter>Source Files\util\helper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\tile_pool.h">
+      <Filter>Source Files\render_process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\render_settings.h">
+      <Filter>Source Files\render_process</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -34,6 +34,8 @@
     <ClInclude Include="src\objects\hitables\hitable_list.h" />
     <ClInclude Include="src\objects\hitables\rect.h" />
     <ClInclude Include="src\objects\hitables\sphere.h" />
+    <ClInclude Include="src\render_process\render_settings.h" />
+    <ClInclude Include="src\render_process\tile_pool.h" />
     <ClInclude Include="src\textures\perlin.h" />
     <ClInclude Include="src\textures\texture.h" />
     <ClInclude Include="src\util\aabb.h" />
