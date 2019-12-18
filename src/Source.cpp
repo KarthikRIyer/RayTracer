@@ -97,7 +97,7 @@ hitable* cornell_box() {
 
 	nx = 1080 / 2;
 	ny = 1080 / 2;
-	ns = 500;
+	ns = 800;
 
 	SKY = BLACK_SKY;
 
@@ -137,7 +137,7 @@ hitable* model_scene() {
 	std::cout << "Building Scene\n";
 	nx = 1080 / 2;
 	ny = 1080 / 4;
-	ns = 500;
+	ns = 1000;
 
 	SKY = BLACK_SKY;
 
@@ -209,16 +209,16 @@ void renderScene(hitable* world, Image* image, TilePool* tilePool) {
 int main() {
 
 	//scene setup
-	hitable* world = cornell_box();
+	hitable* world = model_scene();
 	auto start = std::chrono::high_resolution_clock::now();
-	light_hitable_list = hitable_list(lightsVector);
+	light_hitable_list = hitable_list(&lightsVector[0], lightsVector.size());
 	string filePath = "img.png";
 
 	Image image(nx, ny);
 	TilePool tilePool(nx, ny, 50);
 
-	//maxThreads = std::thread::hardware_concurrency();
-	maxThreads = 1;
+	maxThreads = std::thread::hardware_concurrency();
+	//maxThreads = 1;
 	std::vector<std::thread> renderThreads;
 	renderThreads.resize(maxThreads);
 
