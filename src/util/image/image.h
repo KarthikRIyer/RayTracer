@@ -52,7 +52,8 @@ public:
 
 	void saveImage(std::string path) {
 		int index = path.find_last_of('.');
-		std::string fileType = path.substr(index + 1);
+		fileType = path.substr(index + 1);
+		imagePath = path.substr(0, index + 1);
 		if (fileType == "jpg") {
 			writeJPG(path);
 		}
@@ -66,8 +67,13 @@ public:
 			writeHDR(path);
 		}
 		else {
-			std::cout << "File Write Error::Unknown File Type. Writing PNG.\n";
-			writePNG(path);
+			std::cout << "File Write Error::Unknown File Type.\n";
+			if (imagePath.size() > 0)
+			{
+				fileType = "png";
+				std::cout << "Writing PNG.\n";
+				writePNG(path);
+			}
 		}
 	}
 	
@@ -77,11 +83,14 @@ private:
 	int width;
 	int height;
 	int nrChannels = 3;
+	std::string imagePath = "";
+	std::string fileType = "";
 
 	void writeJPG(std::string path) {
 		unsigned char* charBuffer = new unsigned char[width * height * nrChannels];
 		getCharBuffer(charBuffer);
 		stbi_write_jpg(path.c_str(), width, height, nrChannels, charBuffer, 100);
+		std::cout << "Saved Image: " << imagePath << fileType << std::endl;
 		delete[] charBuffer;
 	}
 
@@ -89,6 +98,7 @@ private:
 		unsigned char* charBuffer = new unsigned char[width*height*nrChannels];
 		getCharBuffer(charBuffer);
 		stbi_write_png(path.c_str(), width, height, nrChannels, charBuffer, width * nrChannels);
+		std::cout << "Saved Image: " << imagePath << fileType << std::endl;
 		delete[] charBuffer;
 	}
 
@@ -96,10 +106,12 @@ private:
 		unsigned char* charBuffer = new unsigned char[width * height * nrChannels];;
 		getCharBuffer(charBuffer);
 		stbi_write_bmp(path.c_str(), width, height, nrChannels, charBuffer);
+		std::cout << "Saved Image: " << imagePath << fileType << std::endl;
 		delete[] charBuffer;
 	}
 
 	void writeHDR(std::string path) {
 		stbi_write_hdr(path.c_str(), width, height, nrChannels, imgBuffer);
+		std::cout << "Saved Image: " << imagePath << fileType << std::endl;
 	}
 };

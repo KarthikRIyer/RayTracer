@@ -146,5 +146,17 @@
     <ClInclude Include="src\render_process\render_settings.h">
       <Filter>Source Files\render_process</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\utility_functions.h">
+      <Filter>Source Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\render_worker.h">
+      <Filter>Source Files\render_process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\scene.h">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\lighting_integrator.h">
+      <Filter>Source Files\render_process</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

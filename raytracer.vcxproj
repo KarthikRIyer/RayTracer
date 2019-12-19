@@ -24,6 +24,7 @@
   <ItemGroup>
     <ClInclude Include="src\objects\hitables\mesh.h" />
     <ClInclude Include="src\objects\hitables\model.h" />
+    <ClInclude Include="src\objects\hitables\scene.h" />
     <ClInclude Include="src\objects\hitables\triangle.h" />
     <ClInclude Include="src\materials\material.h" />
     <ClInclude Include="src\objects\camera\camera.h" />
@@ -34,7 +35,9 @@
     <ClInclude Include="src\objects\hitables\hitable_list.h" />
     <ClInclude Include="src\objects\hitables\rect.h" />
     <ClInclude Include="src\objects\hitables\sphere.h" />
+    <ClInclude Include="src\render_process\lighting_integrator.h" />
     <ClInclude Include="src\render_process\render_settings.h" />
+    <ClInclude Include="src\render_process\render_worker.h" />
     <ClInclude Include="src\render_process\tile_pool.h" />
     <ClInclude Include="src\textures\perlin.h" />
     <ClInclude Include="src\textures\texture.h" />
@@ -50,6 +53,7 @@
     <ClInclude Include="src\util\rng\random_number.h" />
     <ClInclude Include="src\util\stb\stb_image.h" />
     <ClInclude Include="src\util\stb\stb_image_write.h" />
+    <ClInclude Include="src\util\utility_functions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
