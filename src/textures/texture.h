@@ -1,6 +1,11 @@
 #pragma once
+#define STB_IMAGE_IMPLEMENTATION
+#include<string>
+#include<iostream>
+
 #include "util/math/vec3.h"
 #include "perlin.h"
+#include "../util/stb/stb_image.h"
 
 class texture {
 public:
@@ -36,9 +41,15 @@ class image_texture : public texture {
 public:
 	image_texture() {}
 	image_texture(unsigned char *pixels, int A, int B) : data(pixels), nX(A), nY(B) {}
+	image_texture(std::string path) {
+		data = stbi_load(path.c_str(), &nX, &nY, &nC, 0);
+		if (!data) {
+			std::cout << "Failed to load image: " << path << "\n";
+		}
+	}
 	virtual vec3 value(float u, float v, const vec3& p) const;
 	unsigned char* data;
-	int nX, nY;
+	int nX, nY, nC;
 };
 
 vec3 image_texture::value(float u, float v, const vec3& p) const {

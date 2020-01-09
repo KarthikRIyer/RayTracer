@@ -1,0 +1,126 @@
+{
+    "camera": {
+        "aperture": 0.0,
+        "focalDist": 10.0,
+        "lookat": [
+            0,
+            0,
+            0
+        ],
+        "lookfrom": [
+            0,
+            0.3,
+            4
+        ],
+        "verticalFieldOfView": 40.0
+    },
+    "denoise": false,
+    "imageHeight": 270,
+    "imageWidth": 540,
+    "lightsList": [
+        2
+    ],
+    "materialList": {
+        "0": {
+            "name": "white",
+            "texture": {
+                "color": [
+                    0.73,
+                    0.73,
+                    0.73
+                ],
+                "type": "constantTexture"
+            },
+            "type": "lambertian"
+        },
+        "1": {
+            "name": "ground",
+            "texture": {
+                "color": [
+                    0.48,
+                    0.83,
+                    0.53
+                ],
+                "type": "constantTexture"
+            },
+            "type": "lambertian"
+        },
+        "2": {
+            "name": "light",
+            "texture": {
+                "color": [
+                    6,
+                    6,
+                    6
+                ],
+                "type": "constantTexture"
+            },
+            "type": "diffuseLight"
+        }
+    },
+    "objectList": {
+        "0": {
+            "center": [
+                0,
+                -1000,
+                0
+            ],
+            "flipNormals": false,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 1,
+            "radius": 998.3,
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scale": 1,
+            "type": "sphere"
+        },
+        "1": {
+            "flipNormals": false,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 0,
+            "path": "models/monkey_subdivision.obj",
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scale": 1,
+            "type": "model"
+        },
+        "2": {
+            "center": [
+                0,
+                0,
+                6
+            ],
+            "flipNormals": false,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 2,
+            "radius": 1.7,
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scale": 1,
+            "type": "sphere"
+        }
+    },
+    "renderSamples": 100,
+    "sky": 1
+}

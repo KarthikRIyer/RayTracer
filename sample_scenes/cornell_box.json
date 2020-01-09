@@ -1,0 +1,268 @@
+{
+    "camera": {
+        "aperture": 0.0,
+        "focalDist": 10.0,
+        "lookat": [
+            278,
+            278,
+            0
+        ],
+        "lookfrom": [
+            278,
+            278,
+            -800
+        ],
+        "verticalFieldOfView": 40.0
+    },
+    "denoise": false,
+    "imageHeight": 540,
+    "imageWidth": 540,
+    "lightsList": [
+        2
+    ],
+    "materialList": {
+        "0": {
+            "name": "red",
+            "texture": {
+                "color": [
+                    0.65,
+                    0.05,
+                    0.05
+                ],
+                "type": "constantTexture"
+            },
+            "type": "lambertian"
+        },
+        "1": {
+            "name": "white",
+            "texture": {
+                "color": [
+                    0.73,
+                    0.73,
+                    0.73
+                ],
+                "type": "constantTexture"
+            },
+            "type": "lambertian"
+        },
+        "2": {
+            "name": "green",
+            "texture": {
+                "color": [
+                    0.12,
+                    0.45,
+                    0.15
+                ],
+                "type": "constantTexture"
+            },
+            "type": "lambertian"
+        },
+        "3": {
+            "name": "light",
+            "texture": {
+                "color": [
+                    20,
+                    20,
+                    20
+                ],
+                "type": "constantTexture"
+            },
+            "type": "diffuseLight"
+        },
+        "4": {
+            "color": [
+                0.73,
+                0.73,
+                0.73
+            ],
+            "fuzz": 0.0,
+            "name": "aluminium",
+            "type": "metal"
+        }
+    },
+    "objectList": {
+        "0": {
+            "coords": [
+                0,
+                555,
+                0,
+                555,
+                555
+            ],
+            "flipNormals": true,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 2,
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scale": 1,
+            "type": "yzRect"
+        },
+        "1": {
+            "coords": [
+                0,
+                555,
+                0,
+                555,
+                0
+            ],
+            "flipNormals": false,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 0,
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scale": 1,
+            "type": "yzRect"
+        },
+        "2": {
+            "coords": [
+                213,
+                343,
+                227,
+                332,
+                554
+            ],
+            "flipNormals": true,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 3,
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scale": 1,
+            "type": "xzRect"
+        },
+        "3": {
+            "coords": [
+                0,
+                555,
+                0,
+                555,
+                555
+            ],
+            "flipNormals": true,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 1,
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scale": 1,
+            "type": "xzRect"
+        },
+        "4": {
+            "coords": [
+                0,
+                555,
+                0,
+                555,
+                0
+            ],
+            "flipNormals": false,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 1,
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scale": 1,
+            "type": "xzRect"
+        },
+        "5": {
+            "coords": [
+                0,
+                555,
+                0,
+                555,
+                555
+            ],
+            "flipNormals": true,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 1,
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scale": 1,
+            "type": "xyRect"
+        },
+        "6": {
+            "flipNormals": false,
+            "location": [
+                130,
+                0,
+                65
+            ],
+            "materialIndex": 1,
+            "p0": [
+                0,
+                0,
+                0
+            ],
+            "p1": [
+                165,
+                165,
+                165
+            ],
+            "rotation": [
+                0,
+                -18,
+                0
+            ],
+            "scale": 1,
+            "type": "box"
+        },
+        "7": {
+            "flipNormals": false,
+            "location": [
+                390,
+                100,
+                295
+            ],
+            "materialIndex": 4,
+            "path": "models/monkey_subdivision.obj",
+            "rotation": [
+                0,
+                200,
+                0
+            ],
+            "scale": 80,
+            "type": "model"
+        }
+    },
+    "renderSamples": 1000,
+    "sky": 1
+}

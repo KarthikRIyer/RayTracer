@@ -4,6 +4,7 @@
 #include<fstream>
 #include<chrono>
 #include<thread>
+#include<nlohmann/json.hpp>
 #include "objects/hitables/sphere.h"
 #include "objects/hitables/rect.h"
 #include "objects/hitables/box.h"
@@ -12,131 +13,14 @@
 #include "objects/camera/camera.h"
 #include "util/image/image.h"
 #include "util/denoiser/denoiser.h"
+#include "util/scene_parser/scene_parser.h"
 #include "render_process/tile_pool.h"
 #include "render_process/render_settings.h"
 #include "render_process/render_worker.h"
 
-int SKY;
+using json = nlohmann::json;
 
-int nx = 1080 / 2;
-int ny = 1080 / 2;
-
-vec3 lookfrom(0,0,0);
-vec3 lookat(0,0,0);
-float dist_to_focus = 0;
-float aperture = 0.0;
-float vfov = 40.0;
-Camera cam(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
-hitable_list lightHitableList;
-std::vector<hitable*> lightsVector;
-
-hitable* cornell_box() {
-
-	nx = 1080 / 2;
-	ny = 1080 / 2;
-
-	SKY = Scene::BLACK_SKY;
-
-	lookfrom = vec3(278, 278, -800);
-	lookat = vec3(278, 278, 0);
-	dist_to_focus = 10.0;
-	aperture = 0.0;
-	vfov = 40.0;
-	cam = Camera(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
-
-	hitable** list = new hitable * [9];
-	int i = 0;
-	material* red = new lambertian(new constant_texture(vec3(0.65, 0.05, 0.05)));
-	material* white = new lambertian(new constant_texture(vec3(0.73, 0.73, 0.73)));
-	material* green = new lambertian(new constant_texture(vec3(0.12, 0.45, 0.15)));
-	material* light = new diffuse_light(new constant_texture(vec3(20, 20, 20)));
-	material* aluminium = new metal(vec3(0.8f, 0.85f, 0.88f), 0.0f);
-	material* glass = new dielectric(1.5f);
-	list[i++] = new flip_normals(new yz_rect(0, 555, 0, 555, 555, green));
-	list[i++] = new yz_rect(0, 555, 0, 555, 0, red);
-	list[i++] = new flip_normals(new xz_rect(213, 343, 227, 332, 554, light));
-	list[i++] = new flip_normals(new xz_rect(0, 555, 0, 555, 555, white));
-	list[i++] = new xz_rect(0, 555, 0, 555, 0, white);
-	list[i++] = new flip_normals(new xy_rect(0, 555, 0, 555, 555, white));
-	list[i++] = new translate(new rotate_y(new box(vec3(0, 0, 0), vec3(165, 165, 165), white), -18), vec3(130, 0, 65));
-	list[i++] = new translate(new rotate_y(new scale(new model("models/monkey_subdivision.obj", aluminium), 80), 200), vec3(390, 100, 295));
-
-	lightsVector.clear();
-	lightsVector.push_back(list[2]);
-	//lightsVector.push_back(list[6]);
-
-	return new hitable_list(list, i);
-}
-
-hitable* model_scene() {
-
-	std::cout << "Building Scene\n";
-	nx = 1080 / 2;
-	ny = 1080 / 4;
-
-	SKY = Scene::BLACK_SKY;
-
-	lookfrom = vec3(0, 0.3, 4);
-	lookat = vec3(0, 0, 0);
-	dist_to_focus = 10;
-	aperture = 0;
-	vfov = 40.0;
-	cam = Camera(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
-
-	material* white = new lambertian(new constant_texture(vec3(0.73, 0.73, 0.73)));
-	material* ground = new lambertian(new constant_texture(vec3(0.48, 0.83, 0.53)));
-	material* glass = new dielectric(1.5f);
-
-	hitable** list = new hitable * [3];
-
-	int i = 0;
-	list[i++] = new sphere(vec3(0, -1000, 0), 998.3f, ground);
-	list[i++] = new model("models/monkey_subdivision.obj", white);
-	list[i++] = new sphere(vec3(0, 0, 6), 1.7, new diffuse_light(new constant_texture(vec3(6, 6, 6))));
-
-	lightsVector.clear();
-	lightsVector.push_back(list[2]);
-
-	std::cout << "Rendering Scene\n";
-	return new hitable_list(list, i);
-
-}
-
-hitable* model_scene2() {
-
-	std::cout << "Building Scene\n";
-	nx = 1080 / 1;
-	ny = 1080 / 2;
-
-	SKY = Scene::GRADIENT_SKY;
-
-	lookfrom = vec3(0.5, 0.8, 1.3);
-	lookat = vec3(0, 0, 0);
-	dist_to_focus = 10;
-	aperture = 0;
-	vfov = 40.0;
-	cam = Camera(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
-
-	material* white = new lambertian(new constant_texture(vec3(0.73, 0.73, 0.73)));
-	material* ground = new lambertian(new constant_texture(vec3(0.48, 0.83, 0.53)));
-	material* glass = new dielectric(1.5f);
-
-	hitable** list = new hitable * [2];
-
-	int i = 0;
-	list[i++] = new xz_rect(-555, 555, -555, 555, -0.3, ground);
-	hitable* m = new rotate_y(new model("models/dragon.obj", white), 90.0f);
-	list[i++] = m;
-
-	lightsVector.clear();
-
-	std::cout << "Rendering Scene\n";
-	return new hitable_list(list, i);
-
-}
-
-
-void initializeRender(Scene scene, RenderSettings renderSettings) {
+void initializeRender(Scene* scene, RenderSettings renderSettings) {
 
 	RenderWorker renderWorker(scene, renderSettings, std::this_thread::get_id());
 	renderWorker.execute();
@@ -147,18 +31,20 @@ int main() {
 
 	//scene setup
 	auto startSceneSetupTime = std::chrono::high_resolution_clock::now();
-	hitable* world = cornell_box();
-	lightHitableList = hitable_list(&lightsVector[0], lightsVector.size());
-	Scene scene(cam, world);
-	scene.SKY = SKY;
-	scene.setLightHitables(&lightHitableList);
-	std::string filePath = "img.png";
-	Image image(nx, ny);
-	TilePool tilePool(nx, ny, 50);
-	int renderSamples = 1000;
-	bool denoiseImage = true;
+	std::cout << "Building Scene.\n";
+	SceneParser sceneParser("sample_scenes/cornell_box.json");
 
-	RenderSettings renderSettings{ &image, &tilePool, renderSamples, denoiseImage, filePath };
+	std::string filePath = "img.png";
+	Image image(sceneParser.getImageWidth(), sceneParser.getImageHeight());
+	TilePool tilePool(image.getWidth(), image.getHeight(), 50);
+	
+	RenderSettings renderSettings{ 
+		&image,
+		&tilePool,
+		sceneParser.getRenderSamples(),
+		sceneParser.denoiseImage(),
+		filePath
+	};
 	
 	auto startRenderTime = std::chrono::high_resolution_clock::now();
 	auto sceneBuildDuration = std::chrono::duration_cast<std::chrono::seconds>(startRenderTime - startSceneSetupTime);
@@ -166,12 +52,13 @@ int main() {
 	std::cout << "Starting Render.\n";
 
 	int maxThreads = std::thread::hardware_concurrency();
+	std::cout << "Using "<<maxThreads<<" threads.\n";
 	std::vector<std::thread> renderThreads;
 	renderThreads.resize(maxThreads);
 
 	for (unsigned int i = 0; i < maxThreads; i++)
 	{
-		renderThreads[i] = std::thread(&initializeRender, scene, renderSettings);
+		renderThreads[i] = std::thread(&initializeRender, sceneParser.getScene(), renderSettings);
 	}
 	for (unsigned int i = 0; i < maxThreads; i++)
 	{

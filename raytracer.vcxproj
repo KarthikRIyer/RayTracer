@@ -22,6 +22,7 @@
     <ClCompile Include="src\Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\objects\hitables\allHitables.h" />
     <ClInclude Include="src\objects\hitables\mesh.h" />
     <ClInclude Include="src\objects\hitables\model.h" />
     <ClInclude Include="src\objects\hitables\scene.h" />
@@ -51,6 +52,7 @@
     <ClInclude Include="src\util\math\vertex.h" />
     <ClInclude Include="src\util\pdf\pdf.h" />
     <ClInclude Include="src\util\rng\random_number.h" />
+    <ClInclude Include="src\util\scene_parser\scene_parser.h" />
     <ClInclude Include="src\util\stb\stb_image.h" />
     <ClInclude Include="src\util\stb\stb_image_write.h" />
     <ClInclude Include="src\util\utility_functions.h" />

@@ -1,6 +1,7 @@
 #pragma once
 #include "hitable_list.h"
 #include "../camera/camera.h"
+#include "../../render_process/render_settings.h"
 class Scene
 {
 public:
@@ -26,4 +27,5 @@ public:
 	int SKY = GRADIENT_SKY;
 private:
 	hitable_list* lightHitableList;
+
 };

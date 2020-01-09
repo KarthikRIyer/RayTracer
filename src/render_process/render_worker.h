@@ -8,7 +8,7 @@
 class RenderWorker
 {
 public:
-	RenderWorker(Scene scene, RenderSettings settings, std::thread::id id) : renderSettings(settings), renderWorkerId(id) {
+	RenderWorker(Scene* scene, RenderSettings settings, std::thread::id id) : renderSettings(settings), renderWorkerId(id) {
 		this->scene = scene;
 	}
 
@@ -22,7 +22,7 @@ public:
 
 private:
 	std::thread::id renderWorkerId;
-	Scene scene;
+	Scene* scene;
 
 };
 
@@ -34,7 +34,7 @@ void RenderWorker::execute() {
 	Image* image = renderSettings.image;
 	int renderSamples = renderSettings.nSamples;
 	float invRenderSamples = 1.0f / (float)renderSamples;
-	Camera camera = scene.camera;
+	Camera camera = scene->camera;
 
 	while (tilePool->getPoolSize() > 0)
 	{
@@ -50,7 +50,7 @@ void RenderWorker::execute() {
 
 					ray r = camera.get_ray(u, v);
 					vec3 p = r.point_at_parameter(2.0);
-					col += de_nan(lightIntegrator.trace(r, &scene, scene.getLightHitableList(), 0));
+					col += de_nan(lightIntegrator.trace(r, scene, scene->getLightHitableList(), 0));
 				}
 				col *= invRenderSamples;
 				col = vec3(sqrt(col[0]), sqrt(col[1]), sqrt(col[2]));

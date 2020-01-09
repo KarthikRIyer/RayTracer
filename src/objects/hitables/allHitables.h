@@ -1,0 +1,10 @@
+#pragma once
+#include "box.h"
+#include "bvh_node.h"
+#include "hitable.h"
+#include "hitable_list.h"
+#include "model.h"
+#include "rect.h"
+#include "scene.h"
+#include "sphere.h"
+#include "triangle.h"

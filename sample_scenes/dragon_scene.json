@@ -1,0 +1,91 @@
+{
+    "camera": {
+        "aperture": 0.0,
+        "focalDist": 10.0,
+        "lookat": [
+            0,
+            0,
+            0
+        ],
+        "lookfrom": [
+            0.5,
+            0.8,
+            1.3
+        ],
+        "verticalFieldOfView": 40.0
+    },
+    "denoise": true,
+    "imageHeight": 540,
+    "imageWidth": 1080,
+    "lightsList": null,
+    "materialList": {
+        "0": {
+            "name": "white",
+            "texture": {
+                "color": [
+                    0.73,
+                    0.73,
+                    0.73
+                ],
+                "type": "constantTexture"
+            },
+            "type": "lambertian"
+        },
+        "1": {
+            "name": "ground",
+            "texture": {
+                "color": [
+                    0.48,
+                    0.83,
+                    0.53
+                ],
+                "type": "constantTexture"
+            },
+            "type": "lambertian"
+        }
+    },
+    "objectList": {
+        "0": {
+            "coords": [
+                -555,
+                555,
+                -555,
+                555,
+                -0.3
+            ],
+            "flipNormals": false,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 1,
+            "rotation": [
+                0,
+                0,
+                0
+            ],
+            "scale": 1,
+            "type": "xzRect"
+        },
+        "1": {
+            "flipNormals": false,
+            "location": [
+                0,
+                0,
+                0
+            ],
+            "materialIndex": 0,
+            "path": "models/dragon.obj",
+            "rotation": [
+                0,
+                90,
+                0
+            ],
+            "scale": 1,
+            "type": "model"
+        }
+    },
+    "renderSamples": 100,
+    "sky": 0
+}
