@@ -332,4 +332,62 @@ bool rotate_z::hit(const ray& r, float t_min, float t_max, hit_record& rec) cons
 
 }
 
+//////////////////////////////////////////////////////////////////
+
+class scale : public hitable {
+public:
+	scale(hitable* p, float s);
+	virtual bool hit(const ray& r, float t0, float t1, hit_record& rec) const;
+	virtual bool bounding_box(float t0, float t1, aabb& box) const {
+		box = bbox;
+		return hasbox;
+	}
+	virtual float pdf_value(const vec3& o, const vec3& v)const {
+		return ptr->pdf_value(o, v);
+	}
+
+	virtual vec3 random(const vec3& o) const {
+		return ptr->random(o);
+	}
+	hitable* ptr;
+	float m_scale;
+	float m_inv_scale;
+	bool hasbox;
+	aabb bbox;
+};
+
+scale::scale(hitable* p, float s) : ptr(p), m_scale(s) {
+	hasbox = ptr->bounding_box(0, 1, bbox);
+	float minx = bbox.min().x()*m_scale;
+	float miny = bbox.min().y()*m_scale;
+	float minz = bbox.min().z()*m_scale;
+	float maxx = bbox.max().x() * m_scale;
+	float maxy = bbox.max().y() * m_scale;
+	float maxz = bbox.max().z() * m_scale;
+	vec3 min(minx, miny, minz);
+	vec3 max(maxx, maxy, maxz);
+	bbox = aabb(min, max);
+	m_inv_scale = 1.0f / m_scale;
+}
+
+bool scale::hit(const ray& r, float t_min, float t_max, hit_record& rec) const {
+	vec3 origin = r.origin() * m_inv_scale;
+	vec3 direction = r.direction() * m_inv_scale;
+	ray scaled_r(origin, direction, r.time());
+	if (ptr->hit(scaled_r, t_min, t_max, rec)) {
+		vec3 p = rec.p;
+		vec3 normal = rec.normal;
+		p[0] = m_scale * rec.p[0];
+		p[1] = m_scale * rec.p[1];
+		p[2] = m_scale * rec.p[2];
+		rec.p = p;
+		rec.normal = normal;
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
+
 #endif // !HITABLEH

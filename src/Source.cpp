@@ -49,7 +49,7 @@ hitable* cornell_box() {
 	material* red = new lambertian(new constant_texture(vec3(0.65, 0.05, 0.05)));
 	material* white = new lambertian(new constant_texture(vec3(0.73, 0.73, 0.73)));
 	material* green = new lambertian(new constant_texture(vec3(0.12, 0.45, 0.15)));
-	material* light = new diffuse_light(new constant_texture(vec3(15, 15, 15)));
+	material* light = new diffuse_light(new constant_texture(vec3(20, 20, 20)));
 	material* aluminium = new metal(vec3(0.8f, 0.85f, 0.88f), 0.0f);
 	material* glass = new dielectric(1.5f);
 	list[i++] = new flip_normals(new yz_rect(0, 555, 0, 555, 555, green));
@@ -58,12 +58,12 @@ hitable* cornell_box() {
 	list[i++] = new flip_normals(new xz_rect(0, 555, 0, 555, 555, white));
 	list[i++] = new xz_rect(0, 555, 0, 555, 0, white);
 	list[i++] = new flip_normals(new xy_rect(0, 555, 0, 555, 555, white));
-	list[i++] = new sphere(vec3(190.0f, 90.0f, 190.0f), 90, glass);
-	list[i++] = new translate(new rotate_y(new box(vec3(0, 0, 0), vec3(165, 330, 165), white), 15), vec3(265, 0, 295));
+	list[i++] = new translate(new rotate_y(new box(vec3(0, 0, 0), vec3(165, 165, 165), white), -18), vec3(130, 0, 65));
+	list[i++] = new translate(new rotate_y(new scale(new model("models/monkey_subdivision.obj", aluminium), 80), 200), vec3(390, 100, 295));
 
 	lightsVector.clear();
 	lightsVector.push_back(list[2]);
-	lightsVector.push_back(list[6]);
+	//lightsVector.push_back(list[6]);
 
 	return new hitable_list(list, i);
 }
@@ -102,6 +102,39 @@ hitable* model_scene() {
 
 }
 
+hitable* model_scene2() {
+
+	std::cout << "Building Scene\n";
+	nx = 1080 / 1;
+	ny = 1080 / 2;
+
+	SKY = Scene::GRADIENT_SKY;
+
+	lookfrom = vec3(0.5, 0.8, 1.3);
+	lookat = vec3(0, 0, 0);
+	dist_to_focus = 10;
+	aperture = 0;
+	vfov = 40.0;
+	cam = Camera(lookfrom, lookat, vec3(0, 1, 0), vfov, float(nx) / float(ny), aperture, dist_to_focus, 0.0, 1.0);
+
+	material* white = new lambertian(new constant_texture(vec3(0.73, 0.73, 0.73)));
+	material* ground = new lambertian(new constant_texture(vec3(0.48, 0.83, 0.53)));
+	material* glass = new dielectric(1.5f);
+
+	hitable** list = new hitable * [2];
+
+	int i = 0;
+	list[i++] = new xz_rect(-555, 555, -555, 555, -0.3, ground);
+	hitable* m = new rotate_y(new model("models/dragon.obj", white), 90.0f);
+	list[i++] = m;
+
+	lightsVector.clear();
+
+	std::cout << "Rendering Scene\n";
+	return new hitable_list(list, i);
+
+}
+
 
 void initializeRender(Scene scene, RenderSettings renderSettings) {
 
@@ -122,7 +155,7 @@ int main() {
 	std::string filePath = "img.png";
 	Image image(nx, ny);
 	TilePool tilePool(nx, ny, 50);
-	int renderSamples = 100;
+	int renderSamples = 1000;
 	bool denoiseImage = true;
 
 	RenderSettings renderSettings{ &image, &tilePool, renderSamples, denoiseImage, filePath };
