@@ -1,19 +1,45 @@
 #pragma once
 #include "../math/vec3.h"
 #include <random>
+#include <pcg/pcg32.h>
 #include <chrono>
 #include <iostream>
-float random_number() {
-	/*std::mt19937_64 rng;
-	uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
-	std::seed_seq ss{uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed>>32)};
-	rng.seed(ss);
-	std::uniform_real_distribution<float> unif(0, 1);
-	float r = unif(rng);
-	if (r == 1.0f) return random_number();
-	return r;*/
 
-	return (float)rand() / (float)(RAND_MAX + 1);
+class RNG
+{
+public:
+	RNG() {
+		rng.seed(12u);
+	}
+	RNG(uint64_t seed);
+	float random_float();
+	double random_double();
+	void seed(uint64_t seed);
+private:
+	pcg32 rng;
+};
+
+RNG::RNG(uint64_t seed)
+{
+	rng.seed(seed);
+}
+
+float RNG::random_float() {
+	return rng.nextFloat();
+}
+
+double RNG::random_double() {
+	return rng.nextDouble();
+}
+
+void RNG::seed(uint64_t seed) {
+	rng.seed(seed);
+}
+
+RNG random_generator(12u);
+
+float random_number() {
+	return random_generator.random_float();
 }
 
 vec3 random_in_unit_sphere() {

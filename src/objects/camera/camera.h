@@ -5,6 +5,7 @@
 #include<math.h>
 #include "util/math/ray.h"
 #include "util/rng/random_number.h"
+#include "../../render_process/sampling/camera_sample.h"
 
 class Camera {
 public:
@@ -26,11 +27,11 @@ public:
 		vertical = 2 * half_height * focus_dist * v;
 	}
 
-	ray get_ray(float s, float t) {
+	ray get_ray(CameraSample cameraSample) {
 		vec3 rd = lens_radius * random_in_unit_disk();
 		vec3 offset = u * rd.x() + v * rd.y();
-		float time = time0 + random_number() * (time1 - time0);
-		return ray(origin + offset, lower_left_corner + s * horizontal + t * vertical - origin - offset, time);
+		float time = time0 + cameraSample.time * (time1 - time0);
+		return ray(origin + offset, lower_left_corner + cameraSample.pFilm.x * horizontal + cameraSample.pFilm.y * vertical - origin - offset, time);
 	}
 
 	vec3 origin;

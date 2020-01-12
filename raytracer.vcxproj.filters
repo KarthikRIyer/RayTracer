@@ -58,6 +58,9 @@
     <Filter Include="Source Files\util\scene_parser">
       <UniqueIdentifier>{2acdc421-8b8f-4075-a5e0-89b1883a3ddc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\render_process\sampling">
+      <UniqueIdentifier>{c4e2419b-8a6b-4f58-8fd7-50cb587fde4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Source.cpp">
@@ -166,6 +169,15 @@
     </ClInclude>
     <ClInclude Include="src\util\scene_parser\scene_parser.h">
       <Filter>Source Files\util\scene_parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\sampler.h">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\camera_sample.h">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\random_sampler.h">
+      <Filter>Source Files\render_process\sampling</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

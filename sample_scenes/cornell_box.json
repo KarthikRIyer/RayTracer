@@ -14,7 +14,7 @@
         ],
         "verticalFieldOfView": 40.0
     },
-    "denoise": false,
+    "denoise": true,
     "imageHeight": 540,
     "imageWidth": 540,
     "lightsList": [

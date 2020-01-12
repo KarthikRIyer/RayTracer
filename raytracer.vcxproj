@@ -39,6 +39,9 @@
     <ClInclude Include="src\render_process\lighting_integrator.h" />
     <ClInclude Include="src\render_process\render_settings.h" />
     <ClInclude Include="src\render_process\render_worker.h" />
+    <ClInclude Include="src\render_process\sampling\camera_sample.h" />
+    <ClInclude Include="src\render_process\sampling\random_sampler.h" />
+    <ClInclude Include="src\render_process\sampling\sampler.h" />
     <ClInclude Include="src\render_process\tile_pool.h" />
     <ClInclude Include="src\textures\perlin.h" />
     <ClInclude Include="src\textures\texture.h" />
