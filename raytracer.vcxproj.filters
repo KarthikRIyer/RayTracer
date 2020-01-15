@@ -61,10 +61,91 @@
     <Filter Include="Source Files\render_process\sampling">
       <UniqueIdentifier>{c4e2419b-8a6b-4f58-8fd7-50cb587fde4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\util\bounding_box">
+      <UniqueIdentifier>{bf4a73e6-b7a4-4496-986a-4ec73092aa59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Source.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\camera\camera.cpp">
+      <Filter>Source Files\objects\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\rng\random_number.cpp">
+      <Filter>Source Files\util\rng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\math\vec3.cpp">
+      <Filter>Source Files\util\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\hitables\box.cpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\hitables\bvh_node.cpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\hitables\hitable.cpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\hitables\hitable_list.cpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\hitables\mesh.cpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\hitables\model.cpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\hitables\rect.cpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\hitables\sphere.cpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\objects\hitables\triangle.cpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_process\sampling\random_sampler.cpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_process\sampling\sampler.cpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_process\lighting_integrator.cpp">
+      <Filter>Source Files\render_process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_process\render_worker.cpp">
+      <Filter>Source Files\render_process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_process\tile_pool.cpp">
+      <Filter>Source Files\render_process</Filter>
+    </ClCompile>
+    <ClCompile Include="src\textures\perlin.cpp">
+      <Filter>Source Files\textures</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\denoiser\denoiser.cpp">
+      <Filter>Source Files\util\denoiser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\scene_parser\scene_parser.cpp">
+      <Filter>Source Files\util\scene_parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\bounding_box\aabb.cpp">
+      <Filter>Source Files\util\bounding_box</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\math\onb.cpp">
+      <Filter>Source Files\util\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\materials\material.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="src\textures\texture.cpp">
+      <Filter>Source Files\textures</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\image\image.cpp">
+      <Filter>Source Files\util\image</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_process\sampling\stratified_sampler.cpp">
+      <Filter>Source Files\render_process\sampling</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,15 +193,6 @@
     </ClInclude>
     <ClInclude Include="src\util\rng\random_number.h">
       <Filter>Source Files\util\rng</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\stb\stb_image.h">
-      <Filter>Source Files\util\stb</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\stb\stb_image_write.h">
-      <Filter>Source Files\util\stb</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\aabb.h">
-      <Filter>Source Files\util</Filter>
     </ClInclude>
     <ClInclude Include="src\objects\hitables\rect.h">
       <Filter>Source Files\objects\hitables</Filter>
@@ -177,6 +249,18 @@
       <Filter>Source Files\render_process\sampling</Filter>
     </ClInclude>
     <ClInclude Include="src\render_process\sampling\random_sampler.h">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\bounding_box\aabb.h">
+      <Filter>Source Files\util\bounding_box</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\stb\stb_image.h">
+      <Filter>Source Files\util\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\stb\stb_image_write.h">
+      <Filter>Source Files\util\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\stratified_sampler.h">
       <Filter>Source Files\render_process\sampling</Filter>
     </ClInclude>
   </ItemGroup>

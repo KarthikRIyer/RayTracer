@@ -1,11 +1,10 @@
 #pragma once
-#define STB_IMAGE_IMPLEMENTATION
 #include<string>
 #include<iostream>
 
 #include "util/math/vec3.h"
+#include "util/image/image.h"
 #include "perlin.h"
-#include "../util/stb/stb_image.h"
 
 class texture {
 public:
@@ -40,30 +39,16 @@ public:
 class image_texture : public texture {
 public:
 	image_texture() {}
-	image_texture(unsigned char *pixels, int A, int B) : data(pixels), nX(A), nY(B) {}
-	image_texture(std::string path) {
-		data = stbi_load(path.c_str(), &nX, &nY, &nC, 0);
-		if (!data) {
-			std::cout << "Failed to load image: " << path << "\n";
-		}
+	image_texture(float *pixels, int A, int B) : data(pixels), nX(A), nY(B)
+	{
+		image.setBuffer(pixels, A, B);
 	}
+	image_texture(std::string path);
 	virtual vec3 value(float u, float v, const vec3& p) const;
-	unsigned char* data;
-	int nX, nY, nC;
+	float* data;
+	Image image;
+	int nX, nY, nC = 3;
 };
-
-vec3 image_texture::value(float u, float v, const vec3& p) const {
-	int i = u * nX;
-	int j = (1.0 - v) * nY - 0.001;
-	if (i < 0)i = 0;
-	if (j < 0)j = 0;
-	if (i > nX - 1)i = nX - 1;
-	if (j > nY - 1)j = nY - 1;
-	float r = int(data[3 * i + 3 * nX * j]) / 255.0;
-	float g = int(data[3 * i + 3 * nX * j + 1]) / 255.0;
-	float b = int(data[3 * i + 3 * nX * j + 2]) / 255.0;
-	return vec3(r, g, b);
-}
 
 class noise_texture : public texture {
 public:

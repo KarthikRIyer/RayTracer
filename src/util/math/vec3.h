@@ -147,21 +147,12 @@ inline vec3& vec3::operator/=(const float t) {
 	return *this;
 }
 
-inline vec3 unit_vector(vec3 v) {
-	return v / v.length();
-}
+extern inline vec3 unit_vector(vec3 v);
 
-inline int maxDimension(const vec3& v) {
-	return (v.x() > v.y()) ? ((v.x() > v.z()) ? 0 : 2) : ((v.y() > v.z()) ? 1 : 2);
-}
+extern inline int maxDimension(const vec3& v);
 
-vec3 permute(const vec3& v, int x, int y, int z) {
-	return vec3(v[x], v[y], v[z]);
-}
+extern vec3 permute(const vec3& v, int x, int y, int z);
 
-inline vec3 abs(const vec3& v) {
-	return vec3(abs(v.x()), abs(v.y()), abs(v.z()));
-}
-
+extern inline vec3 abs(const vec3& v);
 
 #endif

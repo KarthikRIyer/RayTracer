@@ -1,4 +1,5 @@
 #pragma once
+
 #ifndef CAMERAH
 #define CAMERAH
 #define _USE_MATH_DEFINES
@@ -27,12 +28,7 @@ public:
 		vertical = 2 * half_height * focus_dist * v;
 	}
 
-	ray get_ray(CameraSample cameraSample) {
-		vec3 rd = lens_radius * random_in_unit_disk();
-		vec3 offset = u * rd.x() + v * rd.y();
-		float time = time0 + cameraSample.time * (time1 - time0);
-		return ray(origin + offset, lower_left_corner + cameraSample.pFilm.x * horizontal + cameraSample.pFilm.y * vertical - origin - offset, time);
-	}
+	ray get_ray(CameraSample cameraSample);
 
 	vec3 origin;
 	vec3 lower_left_corner;

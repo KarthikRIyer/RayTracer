@@ -19,7 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\materials\material.cpp" />
+    <ClCompile Include="src\objects\camera\camera.cpp" />
+    <ClCompile Include="src\objects\hitables\box.cpp" />
+    <ClCompile Include="src\objects\hitables\bvh_node.cpp" />
+    <ClCompile Include="src\objects\hitables\hitable.cpp" />
+    <ClCompile Include="src\objects\hitables\hitable_list.cpp" />
+    <ClCompile Include="src\objects\hitables\mesh.cpp" />
+    <ClCompile Include="src\objects\hitables\model.cpp" />
+    <ClCompile Include="src\objects\hitables\rect.cpp" />
+    <ClCompile Include="src\objects\hitables\sphere.cpp" />
+    <ClCompile Include="src\objects\hitables\triangle.cpp" />
+    <ClCompile Include="src\render_process\lighting_integrator.cpp" />
+    <ClCompile Include="src\render_process\render_worker.cpp" />
+    <ClCompile Include="src\render_process\sampling\random_sampler.cpp" />
+    <ClCompile Include="src\render_process\sampling\sampler.cpp" />
+    <ClCompile Include="src\render_process\sampling\stratified_sampler.cpp" />
+    <ClCompile Include="src\render_process\tile_pool.cpp" />
     <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\textures\perlin.cpp" />
+    <ClCompile Include="src\textures\texture.cpp" />
+    <ClCompile Include="src\util\bounding_box\aabb.cpp" />
+    <ClCompile Include="src\util\denoiser\denoiser.cpp" />
+    <ClCompile Include="src\util\image\image.cpp" />
+    <ClCompile Include="src\util\math\onb.cpp" />
+    <ClCompile Include="src\util\math\vec3.cpp" />
+    <ClCompile Include="src\util\rng\random_number.cpp" />
+    <ClCompile Include="src\util\scene_parser\scene_parser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\hitables\allHitables.h" />
@@ -42,10 +68,11 @@
     <ClInclude Include="src\render_process\sampling\camera_sample.h" />
     <ClInclude Include="src\render_process\sampling\random_sampler.h" />
     <ClInclude Include="src\render_process\sampling\sampler.h" />
+    <ClInclude Include="src\render_process\sampling\stratified_sampler.h" />
     <ClInclude Include="src\render_process\tile_pool.h" />
     <ClInclude Include="src\textures\perlin.h" />
     <ClInclude Include="src\textures\texture.h" />
-    <ClInclude Include="src\util\aabb.h" />
+    <ClInclude Include="src\util\bounding_box\aabb.h" />
     <ClInclude Include="src\util\denoiser\denoiser.h" />
     <ClInclude Include="src\util\helper\helper.h" />
     <ClInclude Include="src\util\image\image.h" />
@@ -112,7 +139,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>dependencies\include;$(IncludePath)</IncludePath>
+    <IncludePath>dependencies\include;src;$(IncludePath)</IncludePath>
+    <LibraryPath>dependencies\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>dependencies\include;src;$(IncludePath)</IncludePath>
     <LibraryPath>dependencies\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -138,7 +169,9 @@
       <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoiseDebug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "dependencies\OpenImageDenoiseDebug.dll" "$(TargetDir)OpenImageDenoise.dll"
+      <Command>copy "dependencies\assimp-vc142-mtd.dll" "$(TargetDir)assimp-vc142-mtd.dll"
+copy "dependencies\OpenImageDenoiseDebug.dll" "$(TargetDir)OpenImageDenoise.dll"
+
 copy "dependencies\tbbDebug.dll" "$(TargetDir)tbb.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -170,11 +203,14 @@ copy "dependencies\tbbDebug.dll" "$(TargetDir)tbb.dll"</Command>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoiseDebug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoiseRelease.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "dependencies\OpenImageDenoiseRelease.dll" "$(TargetDir)OpenImageDenoise.dll"
-copy "dependencies\tbbRelease.dll" "$(TargetDir)tbb.dll"</Command>
+
+copy "dependencies\tbbRelease.dll" "$(TargetDir)tbb.dll"
+
+copy "dependencies\assimp-vc142-mtd.dll" "$(TargetDir)assimp-vc142-mtd.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

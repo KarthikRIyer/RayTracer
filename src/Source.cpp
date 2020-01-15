@@ -1,5 +1,3 @@
-#define STB_IMAGE_IMPLEMENTATION
-
 #include<iostream>
 #include<fstream>
 #include<chrono>
