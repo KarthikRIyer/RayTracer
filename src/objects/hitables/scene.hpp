@@ -1,7 +1,7 @@
 #pragma once
-#include "hitable_list.h"
-#include "../camera/camera.h"
-#include "../../render_process/render_settings.h"
+#include "hitable_list.hpp"
+#include "../camera/camera.hpp"
+#include "../../render_process/render_settings.hpp"
 class Scene
 {
 public:

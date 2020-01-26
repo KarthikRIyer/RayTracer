@@ -14,7 +14,7 @@
         ],
         "verticalFieldOfView": 40.0
     },
-    "denoise": true,
+    "denoise": false,
     "imageHeight": 540,
     "imageWidth": 540,
     "lightsList": [
@@ -263,6 +263,6 @@
             "type": "model"
         }
     },
-    "renderSamples": 16,
+    "renderSamples": 1000,
     "sky": 1
 }

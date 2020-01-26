@@ -2,8 +2,8 @@
 #ifndef HITABLELISTH
 #define HITABLELISTH
 
-#include "hitable.h"
-#include "util/rng/random_number.h"
+#include "hitable.hpp"
+#include "util/rng/random_number.hpp"
 #include<iostream>
 #include<mutex>
 

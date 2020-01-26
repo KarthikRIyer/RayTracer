@@ -1,9 +1,9 @@
 #pragma once
 #ifndef MODELH
 
-#include "hitable.h"
-#include "triangle.h"
-#include "mesh.h"
+#include "hitable.hpp"
+#include "triangle.hpp"
+#include "mesh.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>

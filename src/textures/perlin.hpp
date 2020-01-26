@@ -1,6 +1,6 @@
 #pragma once
-#include "util/math/vec3.h"
-#include "util/rng/random_number.h"
+#include "util/math/vec3.hpp"
+#include "util/rng/random_number.hpp"
 
 extern inline float perlin_interp(vec3 c[2][2][2], float u, float v, float w);
 

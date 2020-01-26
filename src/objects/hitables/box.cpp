@@ -1,4 +1,4 @@
-#include "box.h"
+#include "box.hpp"
 
 box::box(const vec3& p0, const vec3& p1, material* ptr) {
 	pmin = p0;

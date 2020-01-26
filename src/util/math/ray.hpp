@@ -2,7 +2,7 @@
 #ifndef RAYH
 #define RAYH
 
-#include "vec3.h"
+#include "vec3.hpp"
 
 class ray {
 

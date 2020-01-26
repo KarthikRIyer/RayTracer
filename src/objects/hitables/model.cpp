@@ -1,4 +1,4 @@
-#include "model.h"
+#include "model.hpp"
 
 vec3 model::random(const vec3& o) const {
 	float r = random_number();

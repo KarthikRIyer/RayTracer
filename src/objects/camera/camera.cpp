@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "camera.hpp"
 
 ray Camera::get_ray(CameraSample cameraSample) {
 	vec3 rd = lens_radius * random_in_unit_disk();

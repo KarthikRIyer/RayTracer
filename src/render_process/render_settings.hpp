@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
 
-#include "objects/hitables/hitable.h"
-#include "util/image/image.h"
-#include "tile_pool.h"
+#include "objects/hitables/hitable.hpp"
+#include "util/image/image.hpp"
+#include "tile_pool.hpp"
 struct RenderSettings {
 	Image* image;
 	TilePool* tilePool;

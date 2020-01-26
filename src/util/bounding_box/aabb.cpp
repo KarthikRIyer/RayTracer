@@ -1,4 +1,4 @@
-#include "aabb.h"
+#include "aabb.hpp"
 
 aabb surrounding_box(aabb box0, aabb box1) {
 	vec3 small(

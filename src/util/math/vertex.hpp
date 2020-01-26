@@ -2,7 +2,7 @@
 #ifndef VERTEXH
 #define VERTEXH
 
-#include "vec3.h"
+#include "vec3.hpp"
 
 class vertex {
 public:

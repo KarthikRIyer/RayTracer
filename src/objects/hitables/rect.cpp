@@ -1,4 +1,4 @@
-#include "rect.h"
+#include "rect.hpp"
 
 // xy_rect functions
 bool xy_rect::hit(const ray& r, float t0, float t1, hit_record& rec) const {

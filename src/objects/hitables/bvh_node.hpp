@@ -1,8 +1,8 @@
 #pragma once
-#include "hitable.h"
-#include "util/math/ray.h"
-#include "util/bounding_box/aabb.h"
-#include "util/rng/random_number.h"
+#include "hitable.hpp"
+#include "util/math/ray.hpp"
+#include "util/bounding_box/aabb.hpp"
+#include "util/rng/random_number.hpp"
 
 class bvh_node : public hitable{
 public:

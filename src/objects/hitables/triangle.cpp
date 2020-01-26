@@ -1,4 +1,4 @@
-#include "triangle.h"
+#include "triangle.hpp"
 
 vec3 triangle::random(const vec3& o) const {
 	float r1 = random_number();

@@ -1,4 +1,4 @@
-#include "denoiser.h"
+#include "denoiser.hpp"
 
 void Denoiser::executeDenoiser() {
 	oidn::Format format;

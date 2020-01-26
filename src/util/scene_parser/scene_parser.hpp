@@ -4,11 +4,11 @@
 #include<vector>
 #include<nlohmann/json.hpp>
 
-#include "objects/hitables/allHitables.h"
-#include "objects/camera/camera.h"
-#include "materials/material.h"
-#include "textures/perlin.h"
-#include "textures/texture.h"
+#include "objects/hitables/allHitables.hpp"
+#include "objects/camera/camera.hpp"
+#include "materials/material.hpp"
+#include "textures/perlin.hpp"
+#include "textures/texture.hpp"
 
 using json = nlohmann::json;
 

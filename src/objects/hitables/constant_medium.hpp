@@ -1,7 +1,7 @@
 #pragma once
-#include "util/math/ray.h"
-#include "objects/hitables/hitable.h"
-#include "materials/material.h"
+#include "util/math/ray.hpp"
+#include "objects/hitables/hitable.hpp"
+#include "materials/material.hpp"
 
 //class constant_medium : public hitable {
 //public:

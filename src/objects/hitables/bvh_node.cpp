@@ -1,4 +1,4 @@
-#include "bvh_node.h"
+#include "bvh_node.hpp"
 
 bvh_node::bvh_node(hitable** l, int n, float time0, float time1) {
 	int axis = int(3 * random_number());

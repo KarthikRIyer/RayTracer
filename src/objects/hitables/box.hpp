@@ -1,6 +1,6 @@
 #pragma once
-#include "hitable_list.h"
-#include "rect.h"
+#include "hitable_list.hpp"
+#include "rect.hpp"
 
 class box : public hitable {
 public:

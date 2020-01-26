@@ -2,7 +2,7 @@
 #include <vector>
 #include <iostream>
 
-#include "camera_sample.h"
+#include "camera_sample.hpp"
 
 class Sampler
 {

@@ -1,7 +1,7 @@
 #pragma once
 #define _USE_MATH_DEFINES
 
-#include "util/math/vec3.h"
+#include "util/math/vec3.hpp"
 
 #include <random>
 #include <pcg/pcg32.h>

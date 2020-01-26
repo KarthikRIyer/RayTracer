@@ -1,4 +1,4 @@
-#include "random_sampler.h"
+#include "random_sampler.hpp"
 
 RandomSampler::RandomSampler(uint64_t samplesPerPixel, int sampleDimensions, uint64_t seed) : Sampler(samplesPerPixel), sampleDimensions(sampleDimensions)
 {

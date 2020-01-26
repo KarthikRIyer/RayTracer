@@ -1,4 +1,4 @@
-#include "sampler.h"
+#include "sampler.hpp"
 
 void Sampler::startPixel(Point2i& p) {
 	currentPixel = p;

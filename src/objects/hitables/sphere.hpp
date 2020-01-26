@@ -3,9 +3,9 @@
 #define SPHEREH
 #define _USE_MATH_DEFINES
 
-#include "hitable.h"
-#include "../../util/math/onb.h"
-#include "../../util/rng/random_number.h"
+#include "hitable.hpp"
+#include "../../util/math/onb.hpp"
+#include "../../util/rng/random_number.hpp"
 #include <math.h>
 
 class sphere : public hitable {

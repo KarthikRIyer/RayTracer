@@ -1,4 +1,4 @@
-#include "random_number.h"
+#include "random_number.hpp"
 
 RNG::RNG(uint64_t seed)
 {

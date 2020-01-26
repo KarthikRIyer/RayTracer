@@ -1,9 +1,9 @@
 #pragma once
 #ifndef MESHH
 
-#include "hitable.h"
-#include "triangle.h"
-#include "bvh_node.h"
+#include "hitable.hpp"
+#include "triangle.hpp"
+#include "bvh_node.hpp"
 #include <vector>
 
 

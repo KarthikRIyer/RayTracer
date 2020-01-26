@@ -1,4 +1,4 @@
-#include "stratified_sampler.h"
+#include "stratified_sampler.hpp"
 
 StratifiedSampler::StratifiedSampler(uint64_t xSamples,
 	uint64_t ySamples,

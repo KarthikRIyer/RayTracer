@@ -2,9 +2,9 @@
 #include<string>
 #include<iostream>
 
-#include "util/math/vec3.h"
-#include "util/image/image.h"
-#include "perlin.h"
+#include "util/math/vec3.hpp"
+#include "util/image/image.hpp"
+#include "perlin.hpp"
 
 class texture {
 public:

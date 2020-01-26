@@ -1,4 +1,4 @@
-#include "hitable_list.h"
+#include "hitable_list.hpp"
 
 float hitable_list::pdf_value(const vec3& o, const vec3& v) const {
 

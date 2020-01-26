@@ -1,5 +1,5 @@
 #pragma once
-#include "math/vec3.h"
+#include "math/vec3.hpp"
 
 inline vec3 de_nan(const vec3& c) {
 	vec3 temp = c;

@@ -149,119 +149,119 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\materials\material.h">
-      <Filter>Source Files\materials</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\camera\camera.h">
-      <Filter>Source Files\objects\camera</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\box.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\bvh_node.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\constant_medium.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\hitable.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\hitable_list.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\sphere.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\textures\perlin.h">
-      <Filter>Source Files\textures</Filter>
-    </ClInclude>
-    <ClInclude Include="src\textures\texture.h">
-      <Filter>Source Files\textures</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\math\onb.h">
-      <Filter>Source Files\util\math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\math\ray.h">
-      <Filter>Source Files\util\math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\math\vec3.h">
-      <Filter>Source Files\util\math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\pdf\pdf.h">
-      <Filter>Source Files\util\pdf</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\rng\random_number.h">
-      <Filter>Source Files\util\rng</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\rect.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\triangle.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\math\vertex.h">
-      <Filter>Source Files\util\math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\mesh.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\model.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\denoiser\denoiser.h">
-      <Filter>Source Files\util\denoiser</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\image\image.h">
-      <Filter>Source Files\util\image</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\helper\helper.h">
-      <Filter>Source Files\util\helper</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\tile_pool.h">
-      <Filter>Source Files\render_process</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\render_settings.h">
-      <Filter>Source Files\render_process</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\utility_functions.h">
-      <Filter>Source Files\util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\render_worker.h">
-      <Filter>Source Files\render_process</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\scene.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\lighting_integrator.h">
-      <Filter>Source Files\render_process</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\allHitables.h">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\scene_parser\scene_parser.h">
-      <Filter>Source Files\util\scene_parser</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\sampling\sampler.h">
-      <Filter>Source Files\render_process\sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\sampling\camera_sample.h">
-      <Filter>Source Files\render_process\sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\sampling\random_sampler.h">
-      <Filter>Source Files\render_process\sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\bounding_box\aabb.h">
-      <Filter>Source Files\util\bounding_box</Filter>
-    </ClInclude>
     <ClInclude Include="src\util\stb\stb_image.h">
       <Filter>Source Files\util\stb</Filter>
     </ClInclude>
     <ClInclude Include="src\util\stb\stb_image_write.h">
       <Filter>Source Files\util\stb</Filter>
     </ClInclude>
-    <ClInclude Include="src\render_process\sampling\stratified_sampler.h">
+    <ClInclude Include="src\materials\material.hpp">
+      <Filter>Source Files\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\camera\camera.hpp">
+      <Filter>Source Files\objects\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\allHitables.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\box.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\bvh_node.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\constant_medium.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\hitable.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\hitable_list.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\mesh.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\model.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\rect.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\scene.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\sphere.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\triangle.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\camera_sample.hpp">
       <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\random_sampler.hpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\sampler.hpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\stratified_sampler.hpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\lighting_integrator.hpp">
+      <Filter>Source Files\render_process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\render_settings.hpp">
+      <Filter>Source Files\render_process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\render_worker.hpp">
+      <Filter>Source Files\render_process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\tile_pool.hpp">
+      <Filter>Source Files\render_process</Filter>
+    </ClInclude>
+    <ClInclude Include="src\textures\perlin.hpp">
+      <Filter>Source Files\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\textures\texture.hpp">
+      <Filter>Source Files\textures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\bounding_box\aabb.hpp">
+      <Filter>Source Files\util\bounding_box</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\denoiser\denoiser.hpp">
+      <Filter>Source Files\util\denoiser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\helper\helper.hpp">
+      <Filter>Source Files\util\helper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\image\image.hpp">
+      <Filter>Source Files\util\image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\math\onb.hpp">
+      <Filter>Source Files\util\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\math\ray.hpp">
+      <Filter>Source Files\util\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\math\vec3.hpp">
+      <Filter>Source Files\util\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\math\vertex.hpp">
+      <Filter>Source Files\util\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\pdf\pdf.hpp">
+      <Filter>Source Files\util\pdf</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\rng\random_number.hpp">
+      <Filter>Source Files\util\rng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\scene_parser\scene_parser.hpp">
+      <Filter>Source Files\util\scene_parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\utility_functions.hpp">
+      <Filter>Source Files\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

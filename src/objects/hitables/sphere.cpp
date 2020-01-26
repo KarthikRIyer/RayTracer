@@ -1,4 +1,4 @@
-#include "sphere.h"
+#include "sphere.hpp"
 
 // sphere functions
 float sphere::pdf_value(const vec3& o, const vec3& v) const {

@@ -1,4 +1,4 @@
-#include "vec3.h"
+#include "vec3.hpp"
 
 inline vec3 unit_vector(vec3 v) {
 	return v / v.length();

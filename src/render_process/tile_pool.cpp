@@ -1,4 +1,4 @@
-#include "tile_pool.h"
+#include "tile_pool.hpp"
 
 TilePool::TilePool(const int width, const int height, const int tileSize) {
 	int xTilesCount = width / tileSize;

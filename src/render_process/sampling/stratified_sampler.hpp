@@ -1,5 +1,5 @@
 #pragma once
-#include "random_sampler.h"
+#include "random_sampler.hpp"
 
 class StratifiedSampler : public RandomSampler
 {

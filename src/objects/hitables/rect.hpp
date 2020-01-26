@@ -1,7 +1,7 @@
 #pragma once
-#include "hitable.h"
-#include "util/bounding_box/aabb.h"
-#include "util/rng/random_number.h"
+#include "hitable.hpp"
+#include "util/bounding_box/aabb.hpp"
+#include "util/rng/random_number.hpp"
 
 class xy_rect : public hitable {
 public:

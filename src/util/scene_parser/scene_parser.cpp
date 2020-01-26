@@ -1,4 +1,4 @@
-#include "scene_parser.h"
+#include "scene_parser.hpp"
 
 SceneParser::SceneParser(std::string path) : path(path)
 {

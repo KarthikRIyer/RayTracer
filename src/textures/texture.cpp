@@ -1,5 +1,5 @@
-#include "texture.h"
-#include "util/image/image.h"
+#include "texture.hpp"
+#include "util/image/image.hpp"
 
 image_texture::image_texture(std::string path) {
 	image = Image(path);

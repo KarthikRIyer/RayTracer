@@ -1,4 +1,4 @@
-#include "perlin.h"
+#include "perlin.hpp"
 
 inline float perlin_interp(vec3 c[2][2][2], float u, float v, float w) {
 	float uu = u * u * (3 - 2 * u);

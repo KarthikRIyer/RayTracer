@@ -3,18 +3,18 @@
 #include<chrono>
 #include<thread>
 #include<nlohmann/json.hpp>
-#include "objects/hitables/sphere.h"
-#include "objects/hitables/rect.h"
-#include "objects/hitables/box.h"
-#include "objects/hitables/model.h"
-#include "objects/hitables/scene.h"
-#include "objects/camera/camera.h"
-#include "util/image/image.h"
-#include "util/denoiser/denoiser.h"
-#include "util/scene_parser/scene_parser.h"
-#include "render_process/tile_pool.h"
-#include "render_process/render_settings.h"
-#include "render_process/render_worker.h"
+#include "objects/hitables/sphere.hpp"
+#include "objects/hitables/rect.hpp"
+#include "objects/hitables/box.hpp"
+#include "objects/hitables/model.hpp"
+#include "objects/hitables/scene.hpp"
+#include "objects/camera/camera.hpp"
+#include "util/image/image.hpp"
+#include "util/denoiser/denoiser.hpp"
+#include "util/scene_parser/scene_parser.hpp"
+#include "render_process/tile_pool.hpp"
+#include "render_process/render_settings.hpp"
+#include "render_process/render_worker.hpp"
 
 using json = nlohmann::json;
 

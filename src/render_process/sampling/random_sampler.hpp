@@ -1,6 +1,6 @@
 #pragma once
-#include "sampler.h"
-#include "util/rng/random_number.h"
+#include "sampler.hpp"
+#include "util/rng/random_number.hpp"
 
 class RandomSampler : public Sampler
 {

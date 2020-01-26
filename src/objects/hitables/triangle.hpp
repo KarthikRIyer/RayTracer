@@ -3,9 +3,9 @@
 #define TRIANGLEH
 #define _USE_MATH_DEFINES
 
-#include "hitable.h"
-#include "../../util/math/vertex.h"
-#include "../../util/rng/random_number.h"
+#include "hitable.hpp"
+#include "util/math/vertex.hpp"
+#include "util/rng/random_number.hpp"
 #include <math.h>
 #include <algorithm>
 

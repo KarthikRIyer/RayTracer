@@ -1,4 +1,4 @@
-#include "mesh.h"
+#include "mesh.hpp"
 
 void mesh::setupMesh() {
 	list_size = indices.size() / 3;

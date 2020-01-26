@@ -4,9 +4,9 @@
 #define CAMERAH
 #define _USE_MATH_DEFINES
 #include<math.h>
-#include "util/math/ray.h"
-#include "util/rng/random_number.h"
-#include "../../render_process/sampling/camera_sample.h"
+#include "util/math/ray.hpp"
+#include "util/rng/random_number.hpp"
+#include "../../render_process/sampling/camera_sample.hpp"
 
 class Camera {
 public:

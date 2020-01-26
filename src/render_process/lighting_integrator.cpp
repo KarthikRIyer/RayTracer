@@ -1,4 +1,4 @@
-#include "lighting_integrator.h"
+#include "lighting_integrator.hpp"
 
 vec3 LightIntegrator::trace(const ray& r, Scene* scene, hitable_list* light_shape, int depth) {
 
