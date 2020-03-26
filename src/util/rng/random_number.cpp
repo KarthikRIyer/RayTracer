@@ -36,16 +36,6 @@ vec3 random_in_unit_sphere() {
 	return p;
 }
 
-inline vec3 random_to_sphere(float radius, float distance_squared) {
-	float r1 = random_number();
-	float r2 = random_number();
-	float z = 1 + r2 * (sqrt(1.0f - radius * radius / distance_squared) - 1.0f);
-	float phi = 2.0f * M_PI * r1;
-	float x = cos(phi) * sqrt(1.0f - z * z);
-	float y = sin(phi) * sqrt(1.0f - z * z);
-	return vec3(x, y, z);
-}
-
 vec3 random_in_unit_disk() {
 	vec3 p;
 	do

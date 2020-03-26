@@ -4,6 +4,7 @@
 #define _USE_MATH_DEFINES
 
 #include <math.h>
+#include <float.h>
 #include "util/math/ray.hpp"
 #include "util/bounding_box/aabb.hpp"
 
@@ -41,12 +42,12 @@ public:
 		}
 	}
 
-	virtual float pdf_value(const vec3& o, const vec3& v)const { 
+	virtual float pdf_value(const vec3& o, const vec3& v)const {
 		return ptr->pdf_value(o, v);
 	}
 
-	virtual vec3 random(const vec3& o) const { 
-		return ptr->random(o); 
+	virtual vec3 random(const vec3& o) const {
+		return ptr->random(o);
 	}
 
 	virtual bool bounding_box(float t0, float t1, aabb& box) const {
@@ -56,7 +57,7 @@ public:
 };
 
 class translate : public hitable {
-public: 
+public:
 	translate(hitable* p, const vec3& displacement) : ptr(p), offset(displacement) {}
 	virtual bool hit(const ray& r, float t0, float t1, hit_record& rec) const;
 	virtual bool bounding_box(float t0, float t1, aabb& box) const;
@@ -73,7 +74,7 @@ public:
 
 ///////////////////////////////////////////////////////////
 class rotate_y : public hitable {
-public: 
+public:
 	rotate_y(hitable* p, float angle);
 	virtual bool hit(const ray& r, float t0, float t1, hit_record& rec) const;
 	virtual bool bounding_box(float t0, float t1, aabb& box) const {
