@@ -140,11 +140,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>dependencies\include;src;$(IncludePath)</IncludePath>
-    <LibraryPath>dependencies\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\RayTracer\dependencies\lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>dependencies\include;src;$(IncludePath)</IncludePath>
-    <LibraryPath>dependencies\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\RayTracer\dependencies\lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -166,13 +166,13 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoiseDebug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoise.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "dependencies\assimp-vc142-mtd.dll" "$(TargetDir)assimp-vc142-mtd.dll"
-copy "dependencies\OpenImageDenoiseDebug.dll" "$(TargetDir)OpenImageDenoise.dll"
+      <Command>copy "dependencies\Debug\assimp-vc142-mtd.dll" "$(TargetDir)assimp-vc142-mtd.dll"
+copy "dependencies\Debug\OpenImageDenoise.dll" "$(TargetDir)OpenImageDenoise.dll"
 
-copy "dependencies\tbbDebug.dll" "$(TargetDir)tbb.dll"</Command>
+copy "dependencies\Debug\tbb.dll" "$(TargetDir)tbb.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -203,14 +203,14 @@ copy "dependencies\tbbDebug.dll" "$(TargetDir)tbb.dll"</Command>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoiseRelease.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoise.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy "dependencies\OpenImageDenoiseRelease.dll" "$(TargetDir)OpenImageDenoise.dll"
+      <Command>copy "dependencies\Release\OpenImageDenoise.dll" "$(TargetDir)OpenImageDenoise.dll"
 
-copy "dependencies\tbbRelease.dll" "$(TargetDir)tbb.dll"
+copy "dependencies\Release\tbb.dll" "$(TargetDir)tbb.dll"
 
-copy "dependencies\assimp-vc142-mtd.dll" "$(TargetDir)assimp-vc142-mtd.dll"</Command>
+copy "dependencies\Release\assimp-vc142-mtd.dll" "$(TargetDir)assimp-vc142-mtd.dll"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
