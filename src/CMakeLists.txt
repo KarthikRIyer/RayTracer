@@ -94,36 +94,101 @@ set(
 	${MAIN_SRC}
 )
 
+	if (UNIX AND NOT APPLE)
+		link_directories("${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/")
+	endif (UNIX AND NOT APPLE)
+
 	add_executable(RayTracer ${CPP_SOURCES})
 	add_custom_command(TARGET RayTracer PRE_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/$<CONFIG>)
-	target_link_libraries(
-		RayTracer
-		"${PROJECT_SOURCE_DIR}/dependencies/lib/$<CONFIG>/assimp-vc142-mtd.lib"
-		"${PROJECT_SOURCE_DIR}/dependencies/lib/$<CONFIG>/OpenImageDenoise.lib"
-	)
+
+	if (WIN32)
+		target_link_libraries(
+			RayTracer
+			"${PROJECT_SOURCE_DIR}/dependencies/lib/$<CONFIG>/assimp-vc142-mtd.lib"
+			"${PROJECT_SOURCE_DIR}/dependencies/lib/$<CONFIG>/OpenImageDenoise.lib"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/OpenImageDenoise.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/OpenImageDenoise.dll"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/tbb.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/tbb.dll"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/assimp-vc142-mtd.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/assimp-vc142-mtd.dll"
+		)
+	endif (WIN32)
+
+	if (UNIX AND NOT APPLE)
+		target_link_libraries(
+			RayTracer
+			libassimp.so
+			libOpenImageDenoise.so
+			libtbb.so
+			libtbbmalloc.so
+			libtbbmalloc_proxy.so
+			pthread
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libOpenImageDenoise.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libOpenImageDenoise.so"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libOpenImageDenoise.so.0" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libOpenImageDenoise.so.0"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libOpenImageDenoise.so.1.1.0" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libOpenImageDenoise.so.1.1.0"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libtbb.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libtbb.so"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libtbbmalloc.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libtbbmalloc.so"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libtbbmalloc_proxy.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libtbbmalloc_proxy.so"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libassimp.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libassimp.so"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libassimp.so.5" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libassimp.so.5"
+		)
+		add_custom_command(
+			TARGET RayTracer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libassimp.so.5.0.1" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libassimp.so.5.0.1"
+		)
+	endif (UNIX AND NOT APPLE)
+
 	add_custom_command(
 		TARGET RayTracer
 		POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:RayTracer>" "${PROJECT_SOURCE_DIR}/$<CONFIG>/$<TARGET_FILE_NAME:RayTracer>"
 	)
-	add_custom_command(
-		TARGET RayTracer
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/OpenImageDenoise.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/OpenImageDenoise.dll"
-	)
-	add_custom_command(
-		TARGET RayTracer
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/tbb.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/tbb.dll"
-	)
-	add_custom_command(
-		TARGET RayTracer
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/assimp-vc142-mtd.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/assimp-vc142-mtd.dll"
-	)
 
 target_include_directories(
-	RayTracer PUBLIC 
+	RayTracer PUBLIC
 	${DEPENDENCIES_DIR}/include
 	${PROJECT_SOURCE_DIR}/src
 )
