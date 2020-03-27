@@ -61,7 +61,9 @@ To run (from root directory of project):
 
 - [assimp](https://github.com/assimp/assimp) for model loading.
 - Intel's [OpenImageDenoise](https://github.com/OpenImageDenoise/oidn) for image denoising.
-- OpenImageDenoise needs [TBB](https://github.com/oneapi-src/oneTBB) as a dependency
+- OpenImageDenoise needs [TBB](https://github.com/oneapi-src/oneTBB) as a dependency.
+- [PCG Random Number Generator](https://github.com/wjakob/pcg32) by [Wenzel Jakob](https://github.com/wjakob).
+- [JSON for Modern C++](https://github.com/nlohmann/json) by [Niels Lohmann](https://github.com/nlohmann) for scene file format.
 
 ## Example Images
 
