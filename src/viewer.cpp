@@ -108,7 +108,7 @@ int main() {
 
 	// glfw window creation
 	// --------------------
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "RayTracer", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -155,7 +155,7 @@ int main() {
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		ImGui::Begin("Demo Window");
+		ImGui::Begin("RayTracer viewer");
 		if (renderStarted && getCompletedThreads() == maxThreads) {
 			resetCompletedThreads();
 			auto renderEndTime = std::chrono::high_resolution_clock::now();
@@ -221,6 +221,7 @@ void saveImage(RenderSettings renderSettings) {
 		auto denoiseDuration = std::chrono::duration_cast<std::chrono::seconds>(denoiseCompleteTime - startDenoiseTime);
 		std::cout << "Denoising Complete: " << denoiseDuration.count() << " seconds\n";
 		outputImage.saveImage(renderSettings.filePath);
+		renderSettings.image->setBuffer(outputImage.getBuffer(), outputImage.getWidth(), outputImage.getHeight());
 	}
 	else
 	{

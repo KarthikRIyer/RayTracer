@@ -48,12 +48,19 @@ int Image::getHeight() {
 }
 
 void Image::setBuffer(float* buffer, int w, int h) {
-	imgBuffer = buffer;
+	std::lock_guard<std::mutex> lock(writeLock);
 	width = w;
 	height = h;
+	delete[] imgBuffer;
+	imgBuffer = new float[width * height * nrChannels];
+	for (unsigned int i = 0; i < (width * height * 3); i++)
+	{
+		imgBuffer[i] = buffer[i];
+	}
 }
 
 void Image::setBuffer(unsigned char* buffer, int w, int h) {
+	std::lock_guard<std::mutex> lock(writeLock);
 	width = w;
 	height = h;
 	nrChannels = 3;

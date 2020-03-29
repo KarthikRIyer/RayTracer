@@ -2,6 +2,7 @@
 #include "util/helper/helper.hpp"
 #include <iostream>
 #include <string>
+#include <mutex>
 
 class Image
 {
@@ -11,7 +12,7 @@ public:
 	Image(std::string path);
 
 	~Image() {
-		delete imgBuffer;
+		delete[] imgBuffer;
 	}
 
 	float& operator [] (int i);
@@ -32,6 +33,7 @@ private:
 	int nrChannels = 3;
 	std::string imagePath = "";
 	std::string fileType = "";
+	std::mutex writeLock;
 
 	void writeJPG(std::string path);
 	void writePNG(std::string path);

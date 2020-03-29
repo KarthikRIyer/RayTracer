@@ -2,8 +2,8 @@
 #include "util/image/image.hpp"
 
 image_texture::image_texture(std::string path) {
-	image = Image(path);
-	data = image.getBuffer();
+	image = new Image(path);
+	data = image->getBuffer();
 }
 
 vec3 image_texture::value(float u, float v, const vec3& p) const {

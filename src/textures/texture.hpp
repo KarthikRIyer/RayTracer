@@ -41,12 +41,13 @@ public:
 	image_texture() {}
 	image_texture(float *pixels, int A, int B) : data(pixels), nX(A), nY(B)
 	{
-		image.setBuffer(pixels, A, B);
+		image = new Image();
+		image->setBuffer(pixels, A, B);
 	}
 	image_texture(std::string path);
 	virtual vec3 value(float u, float v, const vec3& p) const;
 	float* data;
-	Image image;
+	Image *image;
 	int nX, nY, nC = 3;
 };
 

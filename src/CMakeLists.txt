@@ -144,12 +144,15 @@ set(
 		link_directories("${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/")
 	endif (UNIX AND NOT APPLE)
 
-	add_executable(RayTracer ${CPP_SOURCES_MAIN})
 	add_definitions(-DIMGUI_IMPL_OPENGL_LOADER_GLAD)
 	add_definitions(-DGLFW_DLL)
-	add_executable(viewer ${CPP_SOURCES_VIEWER})
-	add_custom_command(TARGET RayTracer PRE_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/$<CONFIG>)
 	find_package(OpenGL REQUIRED)
+
+	add_executable(RayTracer ${CPP_SOURCES_MAIN})
+	add_executable(viewer ${CPP_SOURCES_VIEWER})
+
+	add_custom_command(TARGET RayTracer PRE_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/$<CONFIG>)
+	add_custom_command(TARGET viewer PRE_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/$<CONFIG>)
 
 	if (WIN32)
 		set(
@@ -185,13 +188,22 @@ set(
 		add_custom_command(
 			TARGET viewer
 			POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/glfw3.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/glfw3.dll"
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/OpenImageDenoise.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/OpenImageDenoise.dll"
 		)
-
 		add_custom_command(
 			TARGET viewer
 			POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:viewer>" "${PROJECT_SOURCE_DIR}/$<CONFIG>/$<TARGET_FILE_NAME:viewer>"
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/tbb.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/tbb.dll"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/assimp-vc142-mtd.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/assimp-vc142-mtd.dll"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/glfw3.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/glfw3.dll"
 		)
 	endif (WIN32)
 
@@ -263,21 +275,79 @@ set(
 			TARGET RayTracer
 			POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libassimp.so.5.0.1" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libassimp.so.5.0.1"
-		)
-
+		)		
 		add_custom_command(
 			TARGET viewer
 			POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:viewer>" "${PROJECT_SOURCE_DIR}/$<CONFIG>/$<TARGET_FILE_NAME:viewer>"
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libOpenImageDenoise.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libOpenImageDenoise.so"
 		)
-
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libOpenImageDenoise.so.0" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libOpenImageDenoise.so.0"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libOpenImageDenoise.so.1.1.0" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libOpenImageDenoise.so.1.1.0"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libtbb.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libtbb.so"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libtbbmalloc.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libtbbmalloc.so"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libtbbmalloc_proxy.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libtbbmalloc_proxy.so"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libassimp.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libassimp.so"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libassimp.so.5" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libassimp.so.5"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libassimp.so.5.0.1" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libassimp.so.5.0.1"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libglfw.so" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libglfw.so"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libglfw.so.3" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libglfw.so.3"
+		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libglfw.so.3.4" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libglfw.so.3.4"
+		)
 	endif (UNIX AND NOT APPLE)
 
-	add_custom_command(
-		TARGET RayTracer
-		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:RayTracer>" "${PROJECT_SOURCE_DIR}/$<CONFIG>/$<TARGET_FILE_NAME:RayTracer>"
-	)
+add_custom_command(
+	TARGET RayTracer
+	POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:RayTracer>" "${PROJECT_SOURCE_DIR}/$<CONFIG>/$<TARGET_FILE_NAME:RayTracer>"
+)
+add_custom_command(
+	TARGET viewer
+	POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:viewer>" "${PROJECT_SOURCE_DIR}/$<CONFIG>/$<TARGET_FILE_NAME:viewer>"
+)
 
 target_include_directories(
 	RayTracer PUBLIC
@@ -285,8 +355,8 @@ target_include_directories(
 	${PROJECT_SOURCE_DIR}/src
 )
 target_include_directories(
-			viewer PUBLIC
-			${DEPENDENCIES_DIR}/include
-			${DEPENDENCIES_DIR}/include/imgui
-			${PROJECT_SOURCE_DIR}/src
+	viewer PUBLIC
+	${DEPENDENCIES_DIR}/include
+	${DEPENDENCIES_DIR}/include/imgui
+	${PROJECT_SOURCE_DIR}/src
 )
