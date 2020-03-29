@@ -16,15 +16,11 @@ Features currently implemented
 
 ## Building
 
-The builds have been tested on VisualStudio 2019 with MSVC 14.2 and on Ubuntu 18.04LTS GNU C++ Compiler.
+The builds have been tested on Windows with MSVC 14.2 and on Ubuntu 18.04LTS GNU C++ Compiler.
 
 ### Windows
 
-#### Using VisualStudio
-You can build the project on Windows directly using VisualStudio by opening the `raytracer.soln` file.
-
-#### Using CMake
-To build using CMake create a `build` directory in the root directory of the project. From the `build` directory execute the following command in `cmd`:
+To build install CMake create a `build` directory in the root directory of the project. From the `build` directory execute the following command in `cmd`:
 <br>
 ```console
 cmake -DCMAKE_BUILD_TYPE=Release ..
@@ -38,6 +34,10 @@ To test the project, from the root directory of the project run:
 
 ```console
 Release/RayTracer.exe
+```
+or
+```console
+Release/viewer.exe
 ```
 
 ### Linux
@@ -56,6 +56,10 @@ To run (from root directory of project):
 ```console
 ./Release/RayTracer
 ```
+or
+```console
+./Release/viewer
+```
 
 ## Dependencies
 
@@ -64,6 +68,8 @@ To run (from root directory of project):
 - OpenImageDenoise needs [TBB](https://github.com/oneapi-src/oneTBB) as a dependency.
 - [PCG Random Number Generator](https://github.com/wjakob/pcg32) by [Wenzel Jakob](https://github.com/wjakob).
 - [JSON for Modern C++](https://github.com/nlohmann/json) by [Niels Lohmann](https://github.com/nlohmann) for scene file format.
+- [GLFW](https://www.glfw.org/) and [GLAD](https://glad.dav1d.de/) for OpenGL.
+- [Dear ImGui](https://github.com/ocornut/imgui) for Immediate Mode GUI to view the rendered image.
 
 ## Example Images
 
