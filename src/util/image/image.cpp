@@ -31,7 +31,7 @@ float* Image::getBuffer() {
 void Image::getCharBuffer(unsigned char* buffer) {
 	for (unsigned int i = 0; i < (width * height * nrChannels); i++)
 	{
-		buffer[i] = clamp(255.99 * imgBuffer[i], 0.0, 255.0);
+		buffer[i] = clamp(259.99 * imgBuffer[i], 0.0, 255.0);
 	}
 }
 

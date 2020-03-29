@@ -1,6 +1,6 @@
 #pragma once
 #include <thread>
-
+#include <future>
 #include "render_settings.hpp"
 #include "objects/hitables/hitable.hpp"
 #include "objects/hitables/scene.hpp"
@@ -19,6 +19,7 @@ public:
 	RenderSettings renderSettings;
 
 	void execute();
+	void executeStoppable(std::shared_future<void> futureObject);
 
 	std::thread::id getThreadID() {
 		return  renderWorkerId;

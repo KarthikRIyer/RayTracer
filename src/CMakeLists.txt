@@ -73,12 +73,41 @@ set(
 )
 
 set(
+	GLAD_SRC
+	${DEPENDENCIES_DIR}/include/glad/glad.c
+)
+
+set(
+	IMGUI_SRC
+	${DEPENDENCIES_DIR}/include/imgui/imconfig.h
+	${DEPENDENCIES_DIR}/include/imgui/imgui_draw.cpp
+	${DEPENDENCIES_DIR}/include/imgui/imgui_impl_glfw.cpp
+	${DEPENDENCIES_DIR}/include/imgui/imgui_impl_glfw.h
+	${DEPENDENCIES_DIR}/include/imgui/imgui_impl_opengl3.cpp
+	${DEPENDENCIES_DIR}/include/imgui/imgui_impl_opengl3.h
+	${DEPENDENCIES_DIR}/include/imgui/imgui_internal.h
+	${DEPENDENCIES_DIR}/include/imgui/imgui_widgets.cpp
+	${DEPENDENCIES_DIR}/include/imgui/imgui.cpp
+	${DEPENDENCIES_DIR}/include/imgui/imgui.h
+	${DEPENDENCIES_DIR}/include/imgui/imstb_rectpack.h
+	${DEPENDENCIES_DIR}/include/imgui/imstb_textedit.h
+	${DEPENDENCIES_DIR}/include/imgui/imstb_truetype.h
+)
+
+set(
 	MAIN_SRC
 	"Source.cpp"
 )
 
 set(
-	CPP_SOURCES
+	VIEWER_SRC
+	"viewer.cpp"
+	${IMGUI_SRC}
+	${GLAD_SRC}
+)
+
+set(
+	CPP_SOURCES_MAIN
 	${MATERIALS_SRC}
 	${CAMERA_SRC}
 	${HITABLES_SRC}
@@ -94,11 +123,28 @@ set(
 	${MAIN_SRC}
 )
 
+set(
+	CPP_SOURCES_VIEWER
+	${MATERIALS_SRC}
+	${CAMERA_SRC}
+	${HITABLES_SRC}
+	${RENDER_PROCESS_SRC}
+	${SAMPLING_SRC}
+	${TEXTURES_SRC}
+	${BOUNDING_BOX_SRC}
+	${DENOISER_SRC}
+	${IMAGE_SRC}
+	${MATH_SRC}
+	${RNG_SRC}
+	${SCENE_PARSER_SRC}
+	${VIEWER_SRC}
+)
+
 	if (UNIX AND NOT APPLE)
 		link_directories("${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/")
 	endif (UNIX AND NOT APPLE)
 
-	add_executable(RayTracer ${CPP_SOURCES})
+	add_executable(RayTracer ${CPP_SOURCES_MAIN})
 	add_custom_command(TARGET RayTracer PRE_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/$<CONFIG>)
 
 	if (WIN32)
@@ -125,14 +171,31 @@ set(
 	endif (WIN32)
 
 	if (UNIX AND NOT APPLE)
-		target_link_libraries(
-			RayTracer
+	find_package(OpenGL REQUIRED)
+	add_definitions(-DIMGUI_IMPL_OPENGL_LOADER_GLAD)
+	add_executable(viewer ${CPP_SOURCES_VIEWER})
+		set(
+			LINK_LIB
 			libassimp.so
 			libOpenImageDenoise.so
 			libtbb.so
 			libtbbmalloc.so
 			libtbbmalloc_proxy.so
 			pthread
+		)
+		target_link_libraries(
+			RayTracer
+			${LINK_LIB}
+		)
+		target_link_libraries(
+			viewer
+			${LINK_LIB}
+			${OPENGL_gl_LIBRARY}
+			glfw
+			X11
+			Xrandr
+			Xi
+			dl
 		)
 		add_custom_command(
 			TARGET RayTracer
@@ -178,6 +241,19 @@ set(
 			TARGET RayTracer
 			POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/linux/libassimp.so.5.0.1" "${PROJECT_SOURCE_DIR}/$<CONFIG>/libassimp.so.5.0.1"
+		)
+
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:viewer>" "${PROJECT_SOURCE_DIR}/$<CONFIG>/$<TARGET_FILE_NAME:viewer>"
+		)
+
+		target_include_directories(
+			viewer PUBLIC
+			${DEPENDENCIES_DIR}/include
+			${DEPENDENCIES_DIR}/include/imgui
+			${PROJECT_SOURCE_DIR}/src
 		)
 	endif (UNIX AND NOT APPLE)
 
