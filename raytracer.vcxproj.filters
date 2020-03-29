@@ -14,69 +14,66 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Source Files\materials">
-      <UniqueIdentifier>{625f6740-3658-43aa-ac9d-25d3e8104613}</UniqueIdentifier>
+      <UniqueIdentifier>{1edd8759-5fee-4e4b-8424-cd4396f9686c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\objects">
-      <UniqueIdentifier>{2a40541e-3067-4ada-bae9-5522c046681c}</UniqueIdentifier>
+      <UniqueIdentifier>{50ecc33e-8a9e-4458-900b-69a02cf0694b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\objects\camera">
-      <UniqueIdentifier>{b0b471bc-5b27-4030-b8c9-ee11caa6afd4}</UniqueIdentifier>
+      <UniqueIdentifier>{995dea90-e173-46e6-90fe-bd7fa4da47f0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\objects\hitables">
-      <UniqueIdentifier>{2ae2ccb5-80f3-4510-9ede-d996986c1d77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\textures">
-      <UniqueIdentifier>{e9bba9aa-065b-4eaa-826b-f0fb7c168dda}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\util">
-      <UniqueIdentifier>{479e5a3e-04fe-457e-9ed2-5fd59a86f967}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\util\math">
-      <UniqueIdentifier>{98266223-9f67-460f-bf50-a64e65aa63cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\util\pdf">
-      <UniqueIdentifier>{623144fb-505f-4bea-89f5-bb647d6be644}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\util\rng">
-      <UniqueIdentifier>{bf547a3b-9362-4a08-8b4b-bdc797843394}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\util\stb">
-      <UniqueIdentifier>{1a63e768-ac2d-42e8-9c50-8f67cbe8a595}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\util\denoiser">
-      <UniqueIdentifier>{9b2520f9-2d58-4b82-948e-12c6fe9f972e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\util\image">
-      <UniqueIdentifier>{537b97f7-8247-4565-a572-602e3fdd76ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\util\helper">
-      <UniqueIdentifier>{03a34512-c887-41d3-8323-9f93e17ecc93}</UniqueIdentifier>
+      <UniqueIdentifier>{d89c78af-1c83-4f59-96d7-f7e7660ae954}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\render_process">
-      <UniqueIdentifier>{03ae1849-fa9b-4ac7-aaab-7a4a63ec71fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\util\scene_parser">
-      <UniqueIdentifier>{2acdc421-8b8f-4075-a5e0-89b1883a3ddc}</UniqueIdentifier>
+      <UniqueIdentifier>{83eaba2f-c076-40a2-aa3e-e5bd50d6d745}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\render_process\sampling">
-      <UniqueIdentifier>{c4e2419b-8a6b-4f58-8fd7-50cb587fde4a}</UniqueIdentifier>
+      <UniqueIdentifier>{73e87672-9306-458f-82ee-c996e7885be2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\textures">
+      <UniqueIdentifier>{d3a95456-153e-4a01-b9a8-6b45c92eae51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util">
+      <UniqueIdentifier>{fe867724-1ff1-4093-ac05-1381ad748699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\math">
+      <UniqueIdentifier>{52c2a52b-a9b9-4a8d-a811-2d94d4cf16bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\pdf">
+      <UniqueIdentifier>{f667d2d5-685a-4f8d-b6ad-53238cf1e277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\rng">
+      <UniqueIdentifier>{368b45d3-46e8-4fe9-b33e-7e31a62cd152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\stb">
+      <UniqueIdentifier>{34454a3f-0798-4730-9ef1-e80e06fb5e80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\denoiser">
+      <UniqueIdentifier>{d2c933bb-249f-4b8b-8883-fc2ddb47176f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\image">
+      <UniqueIdentifier>{32179876-d954-4470-9827-a05a4592f0e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\helper">
+      <UniqueIdentifier>{6433f46c-2205-4adc-875c-5581bb3c03a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util\scene_parser">
+      <UniqueIdentifier>{8cf75086-788d-4aba-baff-7609a139db21}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\util\bounding_box">
-      <UniqueIdentifier>{bf4a73e6-b7a4-4496-986a-4ec73092aa59}</UniqueIdentifier>
+      <UniqueIdentifier>{9c6527c2-5ee6-43a0-945f-a9a0e91160ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\materials\material.cpp">
+      <Filter>Source Files\materials</Filter>
+    </ClCompile>
     <ClCompile Include="src\objects\camera\camera.cpp">
       <Filter>Source Files\objects\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="src\util\rng\random_number.cpp">
-      <Filter>Source Files\util\rng</Filter>
-    </ClCompile>
-    <ClCompile Include="src\util\math\vec3.cpp">
-      <Filter>Source Files\util\math</Filter>
     </ClCompile>
     <ClCompile Include="src\objects\hitables\box.cpp">
       <Filter>Source Files\objects\hitables</Filter>
@@ -105,12 +102,6 @@
     <ClCompile Include="src\objects\hitables\triangle.cpp">
       <Filter>Source Files\objects\hitables</Filter>
     </ClCompile>
-    <ClCompile Include="src\render_process\sampling\random_sampler.cpp">
-      <Filter>Source Files\render_process\sampling</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render_process\sampling\sampler.cpp">
-      <Filter>Source Files\render_process\sampling</Filter>
-    </ClCompile>
     <ClCompile Include="src\render_process\lighting_integrator.cpp">
       <Filter>Source Files\render_process</Filter>
     </ClCompile>
@@ -120,11 +111,35 @@
     <ClCompile Include="src\render_process\tile_pool.cpp">
       <Filter>Source Files\render_process</Filter>
     </ClCompile>
+    <ClCompile Include="src\render_process\sampling\random_sampler.cpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_process\sampling\sampler.cpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render_process\sampling\stratified_sampler.cpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClCompile>
     <ClCompile Include="src\textures\perlin.cpp">
       <Filter>Source Files\textures</Filter>
     </ClCompile>
+    <ClCompile Include="src\textures\texture.cpp">
+      <Filter>Source Files\textures</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\math\onb.cpp">
+      <Filter>Source Files\util\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\math\vec3.cpp">
+      <Filter>Source Files\util\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\rng\random_number.cpp">
+      <Filter>Source Files\util\rng</Filter>
+    </ClCompile>
     <ClCompile Include="src\util\denoiser\denoiser.cpp">
       <Filter>Source Files\util\denoiser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\image\image.cpp">
+      <Filter>Source Files\util\image</Filter>
     </ClCompile>
     <ClCompile Include="src\util\scene_parser\scene_parser.cpp">
       <Filter>Source Files\util\scene_parser</Filter>
@@ -132,29 +147,8 @@
     <ClCompile Include="src\util\bounding_box\aabb.cpp">
       <Filter>Source Files\util\bounding_box</Filter>
     </ClCompile>
-    <ClCompile Include="src\util\math\onb.cpp">
-      <Filter>Source Files\util\math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\materials\material.cpp">
-      <Filter>Source Files\materials</Filter>
-    </ClCompile>
-    <ClCompile Include="src\textures\texture.cpp">
-      <Filter>Source Files\textures</Filter>
-    </ClCompile>
-    <ClCompile Include="src\util\image\image.cpp">
-      <Filter>Source Files\util\image</Filter>
-    </ClCompile>
-    <ClCompile Include="src\render_process\sampling\stratified_sampler.cpp">
-      <Filter>Source Files\render_process\sampling</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\util\stb\stb_image.h">
-      <Filter>Source Files\util\stb</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\stb\stb_image_write.h">
-      <Filter>Source Files\util\stb</Filter>
-    </ClInclude>
     <ClInclude Include="src\materials\material.hpp">
       <Filter>Source Files\materials</Filter>
     </ClInclude>
@@ -162,6 +156,18 @@
       <Filter>Source Files\objects\camera</Filter>
     </ClInclude>
     <ClInclude Include="src\objects\hitables\allHitables.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\mesh.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\model.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\scene.hpp">
+      <Filter>Source Files\objects\hitables</Filter>
+    </ClInclude>
+    <ClInclude Include="src\objects\hitables\triangle.hpp">
       <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
     <ClInclude Include="src\objects\hitables\box.hpp">
@@ -179,35 +185,11 @@
     <ClInclude Include="src\objects\hitables\hitable_list.hpp">
       <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
-    <ClInclude Include="src\objects\hitables\mesh.hpp">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\model.hpp">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
     <ClInclude Include="src\objects\hitables\rect.hpp">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\scene.hpp">
       <Filter>Source Files\objects\hitables</Filter>
     </ClInclude>
     <ClInclude Include="src\objects\hitables\sphere.hpp">
       <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\objects\hitables\triangle.hpp">
-      <Filter>Source Files\objects\hitables</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\sampling\camera_sample.hpp">
-      <Filter>Source Files\render_process\sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\sampling\random_sampler.hpp">
-      <Filter>Source Files\render_process\sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\sampling\sampler.hpp">
-      <Filter>Source Files\render_process\sampling</Filter>
-    </ClInclude>
-    <ClInclude Include="src\render_process\sampling\stratified_sampler.hpp">
-      <Filter>Source Files\render_process\sampling</Filter>
     </ClInclude>
     <ClInclude Include="src\render_process\lighting_integrator.hpp">
       <Filter>Source Files\render_process</Filter>
@@ -221,23 +203,26 @@
     <ClInclude Include="src\render_process\tile_pool.hpp">
       <Filter>Source Files\render_process</Filter>
     </ClInclude>
+    <ClInclude Include="src\render_process\sampling\camera_sample.hpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\random_sampler.hpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\sampler.hpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render_process\sampling\stratified_sampler.hpp">
+      <Filter>Source Files\render_process\sampling</Filter>
+    </ClInclude>
     <ClInclude Include="src\textures\perlin.hpp">
       <Filter>Source Files\textures</Filter>
     </ClInclude>
     <ClInclude Include="src\textures\texture.hpp">
       <Filter>Source Files\textures</Filter>
     </ClInclude>
-    <ClInclude Include="src\util\bounding_box\aabb.hpp">
-      <Filter>Source Files\util\bounding_box</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\denoiser\denoiser.hpp">
-      <Filter>Source Files\util\denoiser</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\helper\helper.hpp">
-      <Filter>Source Files\util\helper</Filter>
-    </ClInclude>
-    <ClInclude Include="src\util\image\image.hpp">
-      <Filter>Source Files\util\image</Filter>
+    <ClInclude Include="src\util\utility_functions.hpp">
+      <Filter>Source Files\util</Filter>
     </ClInclude>
     <ClInclude Include="src\util\math\onb.hpp">
       <Filter>Source Files\util\math</Filter>
@@ -257,11 +242,26 @@
     <ClInclude Include="src\util\rng\random_number.hpp">
       <Filter>Source Files\util\rng</Filter>
     </ClInclude>
+    <ClInclude Include="src\util\stb\stb_image.h">
+      <Filter>Source Files\util\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\stb\stb_image_write.h">
+      <Filter>Source Files\util\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\denoiser\denoiser.hpp">
+      <Filter>Source Files\util\denoiser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\image\image.hpp">
+      <Filter>Source Files\util\image</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\helper\helper.hpp">
+      <Filter>Source Files\util\helper</Filter>
+    </ClInclude>
     <ClInclude Include="src\util\scene_parser\scene_parser.hpp">
       <Filter>Source Files\util\scene_parser</Filter>
     </ClInclude>
-    <ClInclude Include="src\util\utility_functions.hpp">
-      <Filter>Source Files\util</Filter>
+    <ClInclude Include="src\util\bounding_box\aabb.hpp">
+      <Filter>Source Files\util\bounding_box</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

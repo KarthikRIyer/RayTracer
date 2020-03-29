@@ -145,13 +145,27 @@ set(
 	endif (UNIX AND NOT APPLE)
 
 	add_executable(RayTracer ${CPP_SOURCES_MAIN})
+	add_definitions(-DIMGUI_IMPL_OPENGL_LOADER_GLAD)
+	add_definitions(-DGLFW_DLL)
+	add_executable(viewer ${CPP_SOURCES_VIEWER})
 	add_custom_command(TARGET RayTracer PRE_BUILD COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/$<CONFIG>)
+	find_package(OpenGL REQUIRED)
 
 	if (WIN32)
-		target_link_libraries(
-			RayTracer
+		set(
+			LINK_LIB
 			"${PROJECT_SOURCE_DIR}/dependencies/lib/$<CONFIG>/assimp-vc142-mtd.lib"
 			"${PROJECT_SOURCE_DIR}/dependencies/lib/$<CONFIG>/OpenImageDenoise.lib"
+		)
+		target_link_libraries(
+			viewer
+			${LINK_LIB}
+			"${PROJECT_SOURCE_DIR}/dependencies/lib/$<CONFIG>/glfw3dll.lib"
+			"${OPENGL_gl_LIBRARY}"
+		)
+		target_link_libraries(
+			RayTracer
+			${LINK_LIB}
 		)
 		add_custom_command(
 			TARGET RayTracer
@@ -168,12 +182,20 @@ set(
 			POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/assimp-vc142-mtd.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/assimp-vc142-mtd.dll"
 		)
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "${PROJECT_SOURCE_DIR}/dependencies/$<CONFIG>/glfw3.dll" "${PROJECT_SOURCE_DIR}/$<CONFIG>/glfw3.dll"
+		)
+
+		add_custom_command(
+			TARGET viewer
+			POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:viewer>" "${PROJECT_SOURCE_DIR}/$<CONFIG>/$<TARGET_FILE_NAME:viewer>"
+		)
 	endif (WIN32)
 
-	if (UNIX AND NOT APPLE)
-	find_package(OpenGL REQUIRED)
-	add_definitions(-DIMGUI_IMPL_OPENGL_LOADER_GLAD)
-	add_executable(viewer ${CPP_SOURCES_VIEWER})
+	if (UNIX AND NOT APPLE)	
 		set(
 			LINK_LIB
 			libassimp.so
@@ -249,12 +271,6 @@ set(
 			COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:viewer>" "${PROJECT_SOURCE_DIR}/$<CONFIG>/$<TARGET_FILE_NAME:viewer>"
 		)
 
-		target_include_directories(
-			viewer PUBLIC
-			${DEPENDENCIES_DIR}/include
-			${DEPENDENCIES_DIR}/include/imgui
-			${PROJECT_SOURCE_DIR}/src
-		)
 	endif (UNIX AND NOT APPLE)
 
 	add_custom_command(
@@ -267,4 +283,10 @@ target_include_directories(
 	RayTracer PUBLIC
 	${DEPENDENCIES_DIR}/include
 	${PROJECT_SOURCE_DIR}/src
+)
+target_include_directories(
+			viewer PUBLIC
+			${DEPENDENCIES_DIR}/include
+			${DEPENDENCIES_DIR}/include/imgui
+			${PROJECT_SOURCE_DIR}/src
 )

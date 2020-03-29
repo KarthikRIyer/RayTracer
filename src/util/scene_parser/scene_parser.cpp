@@ -3,8 +3,13 @@
 SceneParser::SceneParser(std::string path) : path(path)
 {
 	std::ifstream file(path);
-	file >> JSONObject;
-	parseScene();
+	try {
+		file >> JSONObject;
+		parseScene();
+	}
+	catch (...) {
+		std::cout << "Unable to parse scene.\n";
+	}
 }
 
 int SceneParser::getRenderSamples() {
@@ -142,17 +147,17 @@ hitable* SceneParser::parseObject(json objectJSON) {
 				vec3(objectJSON["v1"][0], objectJSON["v1"][1], objectJSON["v1"][2]),
 				vec3(objectJSON["v1"][3], objectJSON["v1"][4], objectJSON["v1"][5]),
 				objectJSON["v1"][6], objectJSON["v1"][7]
-			),
+				),
 			vertex(
 				vec3(objectJSON["v2"][0], objectJSON["v2"][1], objectJSON["v2"][2]),
 				vec3(objectJSON["v2"][3], objectJSON["v2"][4], objectJSON["v2"][5]),
 				objectJSON["v2"][6], objectJSON["v2"][7]
-			),
+				),
 			vertex(
 				vec3(objectJSON["v3"][0], objectJSON["v3"][1], objectJSON["v3"][2]),
 				vec3(objectJSON["v3"][3], objectJSON["v3"][4], objectJSON["v3"][5]),
 				objectJSON["v3"][6], objectJSON["v3"][7]
-			),
+				),
 			materialList[materialIndex]);
 	}
 	else if (objectJSON["type"] == "box")

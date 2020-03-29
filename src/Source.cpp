@@ -35,22 +35,22 @@ int main() {
 	std::string filePath = "img.png";
 	Image image(sceneParser.getImageWidth(), sceneParser.getImageHeight());
 	TilePool tilePool(image.getWidth(), image.getHeight(), 50);
-	
-	RenderSettings renderSettings{ 
+
+	RenderSettings renderSettings{
 		&image,
 		&tilePool,
 		sceneParser.getRenderSamples(),
 		sceneParser.denoiseImage(),
 		filePath
 	};
-	
+
 	auto startRenderTime = std::chrono::high_resolution_clock::now();
 	auto sceneBuildDuration = std::chrono::duration_cast<std::chrono::seconds>(startRenderTime - startSceneSetupTime);
 	std::cout << "Scene built: " << sceneBuildDuration.count() << "\n";
 	std::cout << "Starting Render.\n";
 
 	int maxThreads = std::thread::hardware_concurrency();
-	std::cout << "Using "<<maxThreads<<" threads.\n";
+	std::cout << "Using " << maxThreads << " threads.\n";
 	std::vector<std::thread> renderThreads;
 	renderThreads.resize(maxThreads);
 

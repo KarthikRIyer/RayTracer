@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\dependencies\include\glad\glad.c" />
+    <ClCompile Include="..\dependencies\include\imgui\imgui.cpp" />
+    <ClCompile Include="..\dependencies\include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\dependencies\include\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="..\dependencies\include\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="..\dependencies\include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\src\materials\material.cpp" />
+    <ClCompile Include="..\src\objects\camera\camera.cpp" />
+    <ClCompile Include="..\src\objects\hitables\box.cpp" />
+    <ClCompile Include="..\src\objects\hitables\bvh_node.cpp" />
+    <ClCompile Include="..\src\objects\hitables\hitable.cpp" />
+    <ClCompile Include="..\src\objects\hitables\hitable_list.cpp" />
+    <ClCompile Include="..\src\objects\hitables\mesh.cpp" />
+    <ClCompile Include="..\src\objects\hitables\model.cpp" />
+    <ClCompile Include="..\src\objects\hitables\rect.cpp" />
+    <ClCompile Include="..\src\objects\hitables\sphere.cpp" />
+    <ClCompile Include="..\src\objects\hitables\triangle.cpp" />
+    <ClCompile Include="..\src\render_process\lighting_integrator.cpp" />
+    <ClCompile Include="..\src\render_process\render_worker.cpp" />
+    <ClCompile Include="..\src\render_process\sampling\random_sampler.cpp" />
+    <ClCompile Include="..\src\render_process\sampling\sampler.cpp" />
+    <ClCompile Include="..\src\render_process\sampling\stratified_sampler.cpp" />
+    <ClCompile Include="..\src\render_process\tile_pool.cpp" />
+    <ClCompile Include="..\src\textures\perlin.cpp" />
+    <ClCompile Include="..\src\textures\texture.cpp" />
+    <ClCompile Include="..\src\util\bounding_box\aabb.cpp" />
+    <ClCompile Include="..\src\util\denoiser\denoiser.cpp" />
+    <ClCompile Include="..\src\util\image\image.cpp" />
+    <ClCompile Include="..\src\util\math\onb.cpp" />
+    <ClCompile Include="..\src\util\math\vec3.cpp" />
+    <ClCompile Include="..\src\util\rng\random_number.cpp" />
+    <ClCompile Include="..\src\util\scene_parser\scene_parser.cpp" />
+    <ClCompile Include="..\src\viewer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\materials\material.hpp" />
+    <ClInclude Include="..\src\objects\camera\camera.hpp" />
+    <ClInclude Include="..\src\objects\hitables\allHitables.hpp" />
+    <ClInclude Include="..\src\objects\hitables\box.hpp" />
+    <ClInclude Include="..\src\objects\hitables\bvh_node.hpp" />
+    <ClInclude Include="..\src\objects\hitables\constant_medium.hpp" />
+    <ClInclude Include="..\src\objects\hitables\hitable.hpp" />
+    <ClInclude Include="..\src\objects\hitables\hitable_list.hpp" />
+    <ClInclude Include="..\src\objects\hitables\mesh.hpp" />
+    <ClInclude Include="..\src\objects\hitables\model.hpp" />
+    <ClInclude Include="..\src\objects\hitables\rect.hpp" />
+    <ClInclude Include="..\src\objects\hitables\scene.hpp" />
+    <ClInclude Include="..\src\objects\hitables\sphere.hpp" />
+    <ClInclude Include="..\src\objects\hitables\triangle.hpp" />
+    <ClInclude Include="..\src\render_process\lighting_integrator.hpp" />
+    <ClInclude Include="..\src\render_process\render_settings.hpp" />
+    <ClInclude Include="..\src\render_process\render_worker.hpp" />
+    <ClInclude Include="..\src\render_process\sampling\camera_sample.hpp" />
+    <ClInclude Include="..\src\render_process\sampling\random_sampler.hpp" />
+    <ClInclude Include="..\src\render_process\sampling\sampler.hpp" />
+    <ClInclude Include="..\src\render_process\sampling\stratified_sampler.hpp" />
+    <ClInclude Include="..\src\render_process\tile_pool.hpp" />
+    <ClInclude Include="..\src\textures\perlin.hpp" />
+    <ClInclude Include="..\src\textures\texture.hpp" />
+    <ClInclude Include="..\src\util\bounding_box\aabb.hpp" />
+    <ClInclude Include="..\src\util\denoiser\denoiser.hpp" />
+    <ClInclude Include="..\src\util\helper\helper.hpp" />
+    <ClInclude Include="..\src\util\image\image.hpp" />
+    <ClInclude Include="..\src\util\math\onb.hpp" />
+    <ClInclude Include="..\src\util\math\ray.hpp" />
+    <ClInclude Include="..\src\util\math\vec3.hpp" />
+    <ClInclude Include="..\src\util\math\vertex.hpp" />
+    <ClInclude Include="..\src\util\pdf\pdf.hpp" />
+    <ClInclude Include="..\src\util\rng\random_number.hpp" />
+    <ClInclude Include="..\src\util\scene_parser\scene_parser.hpp" />
+    <ClInclude Include="..\src\util\stb\stb_image.h" />
+    <ClInclude Include="..\src\util\stb\stb_image_write.h" />
+    <ClInclude Include="..\src\util\utility_functions.hpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{13B96920-EE77-4400-A161-9A4FEB40B268}</ProjectGuid>
+    <RootNamespace>viewer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)src;$(SolutionDir)dependencies\include\imgui;$(SolutionDir)dependencies\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)dependencies\lib\Release;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)dependencies\include\imgui;$(SolutionDir)dependencies\include;$(SolutionDir)src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)dependencies\lib\Debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;GLFW_DLL;IMGUI_IMPL_OPENGL_LOADER_GLAD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoise.lib;glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/DGLFW_DLL /DIMGUI_IMPL_OPENGL_LOADER_GLAD %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)dependencies\Release\assimp-vc142-mtd.dll" "$(TargetDir)assimp-vc142-mtd.dll"
+copy "$(SolutionDir)dependencies\Release\OpenImageDenoise.dll" "$(TargetDir)OpenImageDenoise.dll"
+copy "$(SolutionDir)dependencies\Release\glfw3.dll" "$(TargetDir)glfw3.dll"
+copy "$(SolutionDir)dependencies\Release\tbb.dll" "$(TargetDir)tbb.dll"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLFW_DLL;IMGUI_IMPL_OPENGL_LOADER_GLAD;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;OpenImageDenoise.lib;glfw3dll.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy "$(SolutionDir)dependencies\Debug\assimp-vc142-mtd.dll" "$(TargetDir)assimp-vc142-mtd.dll"
+copy "$(SolutionDir)dependencies\Debug\OpenImageDenoise.dll" "$(TargetDir)OpenImageDenoise.dll"
+copy "$(SolutionDir)dependencies\Debug\glfw3.dll" "$(TargetDir)glfw3.dll"
+copy "$(SolutionDir)dependencies\Debug\tbb.dll" "$(TargetDir)tbb.dll"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
