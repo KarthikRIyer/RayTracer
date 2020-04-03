@@ -12,6 +12,19 @@ SceneParser::SceneParser(std::string path) : path(path)
 	}
 }
 
+SceneParser::SceneParser(){}
+
+void SceneParser::loadScene(std::string path){
+	std::ifstream file(path);
+	try {
+		file >> JSONObject;
+		parseScene();
+	}
+	catch (...) {
+		std::cout << "Unable to parse scene.\n";
+	}
+}
+
 int SceneParser::getRenderSamples() {
 	return renderSamples;
 }

@@ -15,6 +15,7 @@ public:
 		delete[] imgBuffer;
 	}
 
+	void initializeImage(int width, int height);
 	float& operator [] (int i);
 	float* getBuffer();
 	void getCharBuffer(unsigned char* buffer);
@@ -24,7 +25,7 @@ public:
 	void saveImage(std::string path);
 	void setBuffer(float* buffer, int w, int h);
 	void setBuffer(unsigned char* buffer, int w, int h);
-	void clearBuffer();	
+	void clearBuffer();
 
 private:
 	float* imgBuffer = NULL;

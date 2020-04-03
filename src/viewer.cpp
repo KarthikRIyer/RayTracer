@@ -31,12 +31,19 @@ unsigned int threadsComplete = 0;
 int maxThreads = 0;
 bool renderStarted = false;
 bool renderCompleted = false;
+bool sceneLoaded = false;
+bool sceneLoadStarted = false;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 void completeThread();
 void saveImage(RenderSettings renderSettings);
 std::mutex writeLock;
 std::mutex readLock;
+Image image;
+TilePool tilePool;
+SceneParser sceneParser;
+std::thread sceneLoaderThread;
+std::string filePath;
 
 void initializeRender(Scene* scene, RenderSettings renderSettings, std::shared_future<void> futureObject) {
 
@@ -70,23 +77,10 @@ void joinThreads(std::vector<std::thread>& renderThreads) {
 	}
 }
 
-int main() {
-
-	std::promise<void> exitSignal;
-	std::shared_future<void> exitFutureObj(exitSignal.get_future());
-
-	//scene setup
-	auto startSceneSetupTime = std::chrono::high_resolution_clock::now();
-	std::cout << "Building Scene.\n";
-	SceneParser sceneParser("sample_scenes/cornell_box.json");
-	auto endSceneSetupTime = std::chrono::high_resolution_clock::now();
-	auto sceneBuildDuration = std::chrono::duration_cast<std::chrono::seconds>(endSceneSetupTime - startSceneSetupTime);
-	std::cout << "Scene built: " << sceneBuildDuration.count() << "\n";
-
-	std::string filePath = "img.png";
-	Image image(sceneParser.getImageWidth(), sceneParser.getImageHeight());
-	TilePool tilePool(image.getWidth(), image.getHeight(), 50);
-
+RenderSettings setupScene(std::string scenePath){
+	sceneParser.loadScene(scenePath);
+	image.initializeImage(sceneParser.getImageWidth(), sceneParser.getImageHeight());
+	tilePool.initializeTilePool(image.getWidth(), image.getHeight(), 50);
 	RenderSettings renderSettings{
 		&image,
 		&tilePool,
@@ -94,6 +88,27 @@ int main() {
 		sceneParser.denoiseImage(),
 		filePath
 	};
+	sceneLoaded = true;
+	sceneLoadStarted = false;
+	return renderSettings;
+}
+
+int main() {
+
+	std::promise<void> exitSignal;
+	std::shared_future<void> exitFutureObj(exitSignal.get_future());
+
+	//scene setup
+	// auto startSceneSetupTime = std::chrono::high_resolution_clock::now();
+	// std::cout << "Building Scene.\n";
+	// SceneParser sceneParser("sample_scenes/cornell_box.json");
+	// auto endSceneSetupTime = std::chrono::high_resolution_clock::now();
+	// auto sceneBuildDuration = std::chrono::duration_cast<std::chrono::seconds>(endSceneSetupTime - startSceneSetupTime);
+	// std::cout << "Scene built: " << sceneBuildDuration.count() << "\n";
+
+	filePath = "img.png";
+
+
 	SCR_WIDTH = (unsigned int)(1.3 * sceneParser.getImageWidth());
 	SCR_HEIGHT = (unsigned int)(1.3 * sceneParser.getImageHeight());
 
@@ -108,7 +123,7 @@ int main() {
 
 	// glfw window creation
 	// --------------------
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "RayTracer", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(600, 800, "RayTracer", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -117,7 +132,7 @@ int main() {
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+	RenderSettings renderSettings;
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -166,7 +181,11 @@ int main() {
 			renderStarted = false;
 			renderCompleted = true;
 		}
-		if (ImGui::Button("Render!") && !renderStarted) {
+		if (ImGui::Button("Load Scene") && !sceneLoaded && !sceneLoadStarted){
+			sceneLoadStarted = true;
+			sceneLoaderThread = std::thread(&setupScene, "sample_scenes/cornell_box.json");
+		}
+		if (ImGui::Button("Render!") && !renderStarted && sceneLoaded) {
 			renderStarted = true;
 			startRenderTime = std::chrono::high_resolution_clock::now();
 			std::cout << "Starting Render.\n";
@@ -193,6 +212,9 @@ int main() {
 		glfwPollEvents();
 	}
 	exitSignal.set_value();
+	if(sceneLoaderThread.joinable()){
+		sceneLoaderThread.join();
+	}
 	for (unsigned int i = 0; i < maxThreads; i++)
 	{
 		if (renderThreads[i].joinable())

@@ -16,6 +16,8 @@ class SceneParser
 {
 public:
 	SceneParser(std::string path);
+	SceneParser();
+	void loadScene(std::string path);
 	int getRenderSamples();
 	int getImageWidth();
 	int getImageHeight();

@@ -1,6 +1,17 @@
 #include "tile_pool.hpp"
 
+TilePool::TilePool(){}
+
 TilePool::TilePool(const int width, const int height, const int tileSize) {
+	processTiles(width, height, tileSize);
+}
+
+void TilePool::initializeTilePool(const int width, const int height, const int tileSize){
+	tilePool = std::queue<Tile>();
+	processTiles(width, height, tileSize);
+}
+
+void TilePool::processTiles(const int width, const int height, const int tileSize){
 	int xTilesCount = width / tileSize;
 	int yTilesCount = height / tileSize;
 	bool extraTilesX = width - xTilesCount * tileSize != 0;
@@ -45,7 +56,6 @@ TilePool::TilePool(const int width, const int height, const int tileSize) {
 	int xStart = xTilesCount * tileSize;
 	int yEnd = height - yTilesCount * tileSize;
 	tilePool.push(Tile{ xStart, width, 0, yEnd });
-
 }
 
 int TilePool::getPoolSize() {

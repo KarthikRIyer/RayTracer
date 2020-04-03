@@ -14,6 +14,15 @@ Image::Image(std::string path) {
 	imgBuffer = stbi_loadf(path.c_str(), &width, &height, &nrChannels, 0);
 }
 
+void Image::initializeImage(int width, int height){
+	if(imgBuffer != NULL){
+		delete[] imgBuffer;
+	}
+	this->width = width;
+	this->height = height;
+	imgBuffer = new float[width * height * nrChannels];
+}
+
 float& Image::operator [] (int i) {
 	return imgBuffer[i];
 }
