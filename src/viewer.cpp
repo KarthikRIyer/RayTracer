@@ -21,96 +21,17 @@
 #include "render_process/tile_pool.hpp"
 #include "render_process/render_settings.hpp"
 #include "render_process/render_worker.hpp"
+#include "util/imfilebrowser.h"
 
 using json = nlohmann::json;
 
 // settings
-unsigned int SCR_WIDTH = 800;
-unsigned int SCR_HEIGHT = 600;
-unsigned int threadsComplete = 0;
-int maxThreads = 0;
-bool renderStarted = false;
-bool renderCompleted = false;
-bool sceneLoaded = false;
-bool sceneLoadStarted = false;
+unsigned int SCR_WIDTH = 1920;
+unsigned int SCR_HEIGHT = 1080;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
-void completeThread();
-void saveImage(RenderSettings renderSettings);
-std::mutex writeLock;
-std::mutex readLock;
-Image image;
-TilePool tilePool;
-SceneParser sceneParser;
-std::thread sceneLoaderThread;
-std::string filePath;
-
-void initializeRender(Scene* scene, RenderSettings renderSettings, std::shared_future<void> futureObject) {
-
-	RenderWorker renderWorker(scene, renderSettings, std::this_thread::get_id());
-	renderWorker.executeStoppable(futureObject);
-	completeThread();
-}
-
-void resetCompletedThreads() {
-	std::lock_guard<std::mutex> lock(writeLock);
-	threadsComplete = 0;
-}
-
-void completeThread() {
-	std::lock_guard<std::mutex> lock(writeLock);
-	threadsComplete++;
-}
-
-unsigned int getCompletedThreads() {
-	std::lock_guard<std::mutex> lock(readLock);
-	return threadsComplete;
-}
-
-void joinThreads(std::vector<std::thread>& renderThreads) {
-	for (unsigned int i = 0; i < maxThreads; i++)
-	{
-		if (renderThreads[i].joinable())
-		{
-			renderThreads[i].join();
-		}
-	}
-}
-
-RenderSettings setupScene(std::string scenePath){
-	sceneParser.loadScene(scenePath);
-	image.initializeImage(sceneParser.getImageWidth(), sceneParser.getImageHeight());
-	tilePool.initializeTilePool(image.getWidth(), image.getHeight(), 50);
-	RenderSettings renderSettings{
-		&image,
-		&tilePool,
-		sceneParser.getRenderSamples(),
-		sceneParser.denoiseImage(),
-		filePath
-	};
-	sceneLoaded = true;
-	sceneLoadStarted = false;
-	return renderSettings;
-}
 
 int main() {
-
-	std::promise<void> exitSignal;
-	std::shared_future<void> exitFutureObj(exitSignal.get_future());
-
-	//scene setup
-	// auto startSceneSetupTime = std::chrono::high_resolution_clock::now();
-	// std::cout << "Building Scene.\n";
-	// SceneParser sceneParser("sample_scenes/cornell_box.json");
-	// auto endSceneSetupTime = std::chrono::high_resolution_clock::now();
-	// auto sceneBuildDuration = std::chrono::duration_cast<std::chrono::seconds>(endSceneSetupTime - startSceneSetupTime);
-	// std::cout << "Scene built: " << sceneBuildDuration.count() << "\n";
-
-	filePath = "img.png";
-
-
-	SCR_WIDTH = (unsigned int)(1.3 * sceneParser.getImageWidth());
-	SCR_HEIGHT = (unsigned int)(1.3 * sceneParser.getImageHeight());
 
 	if (!glfwInit()) {
 		std::cout << "Failed to initialize GLFW" << std::endl;
@@ -123,7 +44,7 @@ int main() {
 
 	// glfw window creation
 	// --------------------
-	GLFWwindow* window = glfwCreateWindow(600, 800, "RayTracer", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "RayTracer", NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -132,7 +53,7 @@ int main() {
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-	RenderSettings renderSettings;
+
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -148,11 +69,6 @@ int main() {
 	ImGui_ImplOpenGL3_Init("#version 330");
 	ImGui::StyleColorsDark();
 
-	maxThreads = std::thread::hardware_concurrency();
-	std::cout << "Using " << maxThreads << " threads.\n";
-	std::vector<std::thread> renderThreads;
-	renderThreads.resize(maxThreads);
-	auto startRenderTime = std::chrono::high_resolution_clock::now();
 	GLuint image_texture;
 	glGenTextures(1, &image_texture);
 	glBindTexture(GL_TEXTURE_2D, image_texture);
@@ -171,38 +87,8 @@ int main() {
 		ImGui::NewFrame();
 
 		ImGui::Begin("RayTracer viewer");
-		if (renderStarted && getCompletedThreads() == maxThreads) {
-			resetCompletedThreads();
-			auto renderEndTime = std::chrono::high_resolution_clock::now();
-			auto renderDuration = std::chrono::duration_cast<std::chrono::seconds>(renderEndTime - startRenderTime);
-			std::cout << "Render Complete: " << renderDuration.count() << " seconds\n";
-			saveImage(renderSettings);
-			joinThreads(renderThreads);
-			renderStarted = false;
-			renderCompleted = true;
-		}
-		if (ImGui::Button("Load Scene") && !sceneLoaded && !sceneLoadStarted){
-			sceneLoadStarted = true;
-			sceneLoaderThread = std::thread(&setupScene, "sample_scenes/cornell_box.json");
-		}
-		if (ImGui::Button("Render!") && !renderStarted && sceneLoaded) {
-			renderStarted = true;
-			startRenderTime = std::chrono::high_resolution_clock::now();
-			std::cout << "Starting Render.\n";
-			for (unsigned int i = 0; i < maxThreads; i++)
-			{
-				std::cout << i << "\n";
-				renderThreads[i] = std::thread(&initializeRender, sceneParser.getScene(), renderSettings, exitFutureObj);
-			}
-		}
+		ImGui::Button("Render");
 		ImGui::End();
-		if (renderStarted || renderCompleted) {
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, image.getWidth(), image.getHeight(), 0, GL_RGB, GL_FLOAT, image.getBuffer());
-			ImGui::Begin("Render Result");
-			ImGui::Image((void*)(intptr_t)image_texture, ImVec2(image.getWidth(), image.getHeight()));
-			ImGui::End();
-		}
-
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -210,17 +96,6 @@ int main() {
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-	}
-	exitSignal.set_value();
-	if(sceneLoaderThread.joinable()){
-		sceneLoaderThread.join();
-	}
-	for (unsigned int i = 0; i < maxThreads; i++)
-	{
-		if (renderThreads[i].joinable())
-		{
-			renderThreads[i].join();
-		}
 	}
 
 	ImGui_ImplOpenGL3_Shutdown();
@@ -230,25 +105,6 @@ int main() {
 	// ------------------------------------------------------------------
 	glfwTerminate();
 
-}
-
-void saveImage(RenderSettings renderSettings) {
-	if (renderSettings.DENOISE_IMAGE)
-	{
-		auto startDenoiseTime = std::chrono::high_resolution_clock::now();
-		Image outputImage(renderSettings.image->getWidth(), renderSettings.image->getHeight());
-		Denoiser imageDenoiser(renderSettings.image->getBuffer(), outputImage.getBuffer(), renderSettings.image->getWidth(), renderSettings.image->getHeight(), renderSettings.image->getChannels());
-		imageDenoiser.executeDenoiser();
-		auto denoiseCompleteTime = std::chrono::high_resolution_clock::now();
-		auto denoiseDuration = std::chrono::duration_cast<std::chrono::seconds>(denoiseCompleteTime - startDenoiseTime);
-		std::cout << "Denoising Complete: " << denoiseDuration.count() << " seconds\n";
-		outputImage.saveImage(renderSettings.filePath);
-		renderSettings.image->setBuffer(outputImage.getBuffer(), outputImage.getWidth(), outputImage.getHeight());
-	}
-	else
-	{
-		renderSettings.image->saveImage(renderSettings.filePath);
-	}
 }
 
 void processInput(GLFWwindow* window)
