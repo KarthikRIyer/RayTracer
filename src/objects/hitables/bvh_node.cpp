@@ -1,6 +1,6 @@
 #include "bvh_node.hpp"
 
-bvh_node::bvh_node(hitable** l, int n, float time0, float time1) {
+bvh_node::bvh_node(hitable** l, size_t n, float time0, float time1) {
 	int axis = int(3 * random_number());
 	if (axis == 0) {
 		qsort(l, n, sizeof(hitable*), box_x_compare);
@@ -73,7 +73,7 @@ int box_x_compare(const void* a, const void* b) {
 	if (!ah->bounding_box(0, 0, box_left) || !bh->bounding_box(0, 0, box_right)) {
 		std::cerr << "No bounding box in bvh_node constructor\n";
 	}
-	if (box_left.min().x() - box_right.min().x() < 0) {
+	if (box_left.min().x - box_right.min().x < 0) {
 		return -1;
 	}
 	else {
@@ -88,7 +88,7 @@ int box_y_compare(const void* a, const void* b) {
 	if (!ah->bounding_box(0, 0, box_left) || !bh->bounding_box(0, 0, box_right)) {
 		std::cerr << "No bounding box in bvh_node constructor\n";
 	}
-	if (box_left.min().y() - box_right.min().y() < 0) {
+	if (box_left.min().y - box_right.min().y < 0) {
 		return -1;
 	}
 	else {
@@ -103,7 +103,7 @@ int box_z_compare(const void* a, const void* b) {
 	if (!ah->bounding_box(0, 0, box_left) || !bh->bounding_box(0, 0, box_right)) {
 		std::cerr << "No bounding box in bvh_node constructor\n";
 	}
-	if (box_left.min().z() - box_right.min().z() < 0) {
+	if (box_left.min().z - box_right.min().z < 0) {
 		return -1;
 	}
 	else {

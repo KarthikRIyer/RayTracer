@@ -1,26 +1,20 @@
 #include<iostream>
-#include<fstream>
 #include<chrono>
 #include<thread>
 #include<nlohmann/json.hpp>
+#include <utility>
 #include "objects/hitables/sphere.hpp"
-#include "objects/hitables/rect.hpp"
 #include "objects/hitables/box.hpp"
-#include "objects/hitables/model.hpp"
 #include "objects/hitables/scene.hpp"
-#include "objects/camera/camera.hpp"
-#include "util/image/image.hpp"
 #include "util/denoiser/denoiser.hpp"
 #include "util/scene_parser/scene_parser.hpp"
-#include "render_process/tile_pool.hpp"
-#include "render_process/render_settings.hpp"
 #include "render_process/render_worker.hpp"
 
 using json = nlohmann::json;
 
 void initializeRender(Scene* scene, RenderSettings renderSettings) {
 
-	RenderWorker renderWorker(scene, renderSettings, std::this_thread::get_id());
+	RenderWorker renderWorker(scene, std::move(renderSettings), std::this_thread::get_id());
 	renderWorker.execute();
 
 }
@@ -49,7 +43,8 @@ int main() {
 	std::cout << "Scene built: " << sceneBuildDuration.count() << "\n";
 	std::cout << "Starting Render.\n";
 
-	int maxThreads = std::thread::hardware_concurrency();
+	unsigned int maxThreads = std::thread::hardware_concurrency();
+//	unsigned int maxThreads = 1;
 	std::cout << "Using "<<maxThreads<<" threads.\n";
 	std::vector<std::thread> renderThreads;
 	renderThreads.resize(maxThreads);
@@ -65,7 +60,6 @@ int main() {
 			renderThreads[i].join();
 		}
 	}
-
 
 	if (renderSettings.DENOISE_IMAGE)
 	{

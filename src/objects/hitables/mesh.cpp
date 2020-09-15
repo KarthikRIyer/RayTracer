@@ -10,7 +10,7 @@ void mesh::setupMesh() {
 	}
 }
 
-vec3 mesh::random(const vec3& o) const {
+glm::vec3 mesh::random(const glm::vec3& o) const {
 	float r = random_number();
 	int index = int(r * list_size);
 	return list[index]->random(o);

@@ -8,7 +8,7 @@ void Sampler::startPixel(Point2i& p) {
 
 bool Sampler::startNextSample() {
 	current1DOffset = current2DOffset = 0;
-	return ++currentSampleIndex < samplesPerPixel;
+	return currentSampleIndex++ < samplesPerPixel;
 }
 
 CameraSample Sampler::getCameraSample(Point2i& currentPixel) {

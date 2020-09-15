@@ -263,6 +263,6 @@
             "type": "model"
         }
     },
-    "renderSamples": 10,
+    "renderSamples": 64,
     "sky": 1
 }

@@ -19,7 +19,7 @@ public:
 	}
 	virtual bool hit(const ray& r, float tmin, float tmax, hit_record& rec)const;
 	virtual bool bounding_box(float t0, float t1, aabb& box) const;
-	virtual vec3 random(const vec3& o) const;
+	virtual glm::vec3 random(const glm::vec3& o) const;
 	
 	material* mat_ptr;
 	vertex v1, v2, v3;

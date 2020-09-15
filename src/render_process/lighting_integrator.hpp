@@ -10,7 +10,7 @@ class LightIntegrator
 public:
 	LightIntegrator() {}
 
-	vec3 trace(const ray& r, Scene* scene, hitable_list* light_shape, int depth);
+	glm::vec3 trace(const ray& r, Scene* scene, hitable_list* light_shape, int depth);
 private:
 
 };

@@ -1,6 +1,6 @@
 #include "hitable_list.hpp"
 
-float hitable_list::pdf_value(const vec3& o, const vec3& v) const {
+float hitable_list::pdf_value(const glm::vec3& o, const glm::vec3& v) const {
 
 	float weight = 1.0f / (float)list_size;
 	float sum = 0.0f;
@@ -11,7 +11,7 @@ float hitable_list::pdf_value(const vec3& o, const vec3& v) const {
 	return sum;
 }
 
-vec3 hitable_list::random(const vec3& o) const {
+glm::vec3 hitable_list::random(const glm::vec3& o) const {
 	float r = random_number();
 	int index = int(r * list_size);
 	//std::cout << index << " " << r << "\n";
@@ -22,7 +22,7 @@ bool hitable_list::hit(const ray& r, float tmin, float tmax, hit_record& rec) co
 
 	hit_record temp_rec;
 	bool hit_anything = false;
-	double closest_so_far = tmax;
+	float closest_so_far = tmax;
 	for (int i = 0; i < list_size; i++) {
 		if (list[i]->hit(r, tmin, closest_so_far, temp_rec)) {
 			hit_anything = true;

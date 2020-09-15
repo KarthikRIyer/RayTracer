@@ -23,7 +23,7 @@ public:
 	void saveImage(std::string path);
 	void setBuffer(float* buffer, int w, int h);
 	void setBuffer(unsigned char* buffer, int w, int h);
-	void clearBuffer();	
+	void clearBuffer();
 
 private:
 	float* imgBuffer = NULL;

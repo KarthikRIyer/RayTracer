@@ -10,14 +10,14 @@
 
 class material;
 
-extern void get_sphere_uv(const vec3& p, float& u, float& v);
+extern void get_sphere_uv(const glm::vec3& p, float& u, float& v);
 
 struct hit_record {
 	float t;
 	float u;
 	float v;
-	vec3 p;
-	vec3 normal;
+	glm::vec3 p;
+	glm::vec3 normal;
 	material *mat_ptr;
 };
 
@@ -25,8 +25,8 @@ class hitable {
 public:
 	virtual bool hit(const ray& r, float t_min, float t_max, hit_record& rec) const = 0;
 	virtual bool bounding_box(float t0, float t1, aabb& box) const = 0;
-	virtual float pdf_value(const vec3& o, const vec3& v)const { return 0.0f; }
-	virtual vec3 random(const vec3& o) const { return vec3(1.0f, 0.0f, 0.0f); }
+	virtual float pdf_value(const glm::vec3& o, const glm::vec3& v)const { return 0.0f; }
+	virtual glm::vec3 random(const glm::vec3& o) const { return glm::vec3(1.0f, 0.0f, 0.0f); }
 };
 
 class flip_normals : public hitable {
@@ -42,11 +42,11 @@ public:
 		}
 	}
 
-	virtual float pdf_value(const vec3& o, const vec3& v)const {
+	virtual float pdf_value(const glm::vec3& o, const glm::vec3& v)const {
 		return ptr->pdf_value(o, v);
 	}
 
-	virtual vec3 random(const vec3& o) const {
+	virtual glm::vec3 random(const glm::vec3& o) const {
 		return ptr->random(o);
 	}
 
@@ -58,18 +58,18 @@ public:
 
 class translate : public hitable {
 public:
-	translate(hitable* p, const vec3& displacement) : ptr(p), offset(displacement) {}
+	translate(hitable* p, const glm::vec3& displacement) : ptr(p), offset(displacement) {}
 	virtual bool hit(const ray& r, float t0, float t1, hit_record& rec) const;
 	virtual bool bounding_box(float t0, float t1, aabb& box) const;
-	virtual float pdf_value(const vec3& o, const vec3& v)const {
+	virtual float pdf_value(const glm::vec3& o, const glm::vec3& v)const {
 		return ptr->pdf_value(o, v);
 	}
 
-	virtual vec3 random(const vec3& o) const {
+	virtual glm::vec3 random(const glm::vec3& o) const {
 		return ptr->random(o);
 	}
 	hitable *ptr;
-	vec3 offset;
+	glm::vec3 offset;
 };
 
 ///////////////////////////////////////////////////////////
@@ -81,11 +81,11 @@ public:
 		box = bbox;
 		return hasbox;
 	}
-	virtual float pdf_value(const vec3& o, const vec3& v)const {
+	virtual float pdf_value(const glm::vec3& o, const glm::vec3& v)const {
 		return ptr->pdf_value(o, v);
 	}
 
-	virtual vec3 random(const vec3& o) const {
+	virtual glm::vec3 random(const glm::vec3& o) const {
 		return ptr->random(o);
 	}
 	hitable* ptr;
@@ -105,11 +105,11 @@ public:
 		box = bbox;
 		return hasbox;
 	}
-	virtual float pdf_value(const vec3& o, const vec3& v)const {
+	virtual float pdf_value(const glm::vec3& o, const glm::vec3& v)const {
 		return ptr->pdf_value(o, v);
 	}
 
-	virtual vec3 random(const vec3& o) const {
+	virtual glm::vec3 random(const glm::vec3& o) const {
 		return ptr->random(o);
 	}
 	hitable* ptr;
@@ -129,11 +129,11 @@ public:
 		box = bbox;
 		return hasbox;
 	}
-	virtual float pdf_value(const vec3& o, const vec3& v)const {
+	virtual float pdf_value(const glm::vec3& o, const glm::vec3& v)const {
 		return ptr->pdf_value(o, v);
 	}
 
-	virtual vec3 random(const vec3& o) const {
+	virtual glm::vec3 random(const glm::vec3& o) const {
 		return ptr->random(o);
 	}
 	hitable* ptr;
@@ -153,11 +153,11 @@ public:
 		box = bbox;
 		return hasbox;
 	}
-	virtual float pdf_value(const vec3& o, const vec3& v)const {
+	virtual float pdf_value(const glm::vec3& o, const glm::vec3& v)const {
 		return ptr->pdf_value(o, v);
 	}
 
-	virtual vec3 random(const vec3& o) const {
+	virtual glm::vec3 random(const glm::vec3& o) const {
 		return ptr->random(o);
 	}
 	hitable* ptr;

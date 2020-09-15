@@ -3,14 +3,15 @@
 #define VERTEXH
 
 #include "vec3.hpp"
+#include <glm/glm.hpp>
 
 class vertex {
 public:
 	vertex() {}
-	vertex(vec3 p, vec3 n, float ut, float vt): position(p), normal(n), u(ut), v(vt) {}
+	vertex(glm::vec3 p, glm::vec3 n, float ut, float vt): position(p), normal(n), u(ut), v(vt) {}
 
-	vec3 position;
-	vec3 normal;
+	glm::vec3 position;
+	glm::vec3 normal;
 	float u = 0, v = 0;
 
 };
